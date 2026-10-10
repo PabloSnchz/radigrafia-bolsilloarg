@@ -1,0 +1,1291 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Radiografía del Bolsillo Argentino</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;900&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  
+  <!-- Chart.js (solo para Fase A) -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+  <style>
+    /* ============================================
+       ANDREANI CARTESIAN DESIGN SYSTEM — TOKENS
+       ============================================ */
+    :root {
+      /* --- Color Primitives --- */
+      --c-red-50: #fbe8e9; --c-red-100: #f7d1d2; --c-red-500: #df474d; --c-red-600: #d71920;
+      --c-red-700: #b6040b; --c-red-800: #810f13;
+      --c-orange-50: #fdefe9; --c-orange-500: #ed8352; --c-orange-600: #e86427; --c-orange-700: #ba501f;
+      --c-yellow-50: #fff9ed; --c-yellow-500: #ffcf73; --c-yellow-600: #ffc350; --c-yellow-800: #a97f30;
+      --c-green-50: #ddf3ea; --c-green-100: #bfe8d9; --c-green-500: #439676; --c-green-600: #1f7e5a; --c-green-700: #196548;
+      --c-blue-50: #edeffb; --c-blue-500: #7182df; --c-blue-600: #4e63d7; --c-blue-700: #3e4fac;
+      --c-gray-000: #ffffff; --c-gray-50: #fafafa; --c-gray-100: #dfe1e3; --c-gray-200: #c0c3c8;
+      --c-gray-300: #a0a6ac; --c-gray-400: #818891; --c-gray-500: #616a75; --c-gray-600: #4e555e;
+      --c-gray-700: #3a4046; --c-gray-800: #272a2f; --c-gray-900: #1d2023;
+      --c-base-black: #000000; --c-base-white: #ffffff;
+
+      /* --- Semantic: Background & Surface --- */
+      --c-color-bg: #fafafa;
+      --c-color-bg-white: #ffffff;
+      --c-color-surface: #ffffff;
+      --c-color-surface-hover: #fafafa;
+      --c-color-surface-disabled: #dfe1e3;
+      --c-color-surface-primary-subtle: #fbe8e9;
+      --c-color-surface-neutral: #dfe1e3;
+      --c-color-surface-neutral-subtle: #fafafa;
+      --c-color-surface-success-subtle: #ddf3ea;
+      --c-color-surface-info-subtle: #edeffb;
+      --c-color-surface-caution-subtle: #fff9ed;
+      --c-color-surface-warning-subtle: #fdefe9;
+      --c-color-surface-error-subtle: #fbe8e9;
+
+      /* --- Semantic: Fill --- */
+      --c-color-fill-primary: #d71920;
+      --c-color-fill-primary-hover: #b6040b;
+      --c-color-fill-primary-pressed: #810f13;
+      --c-color-fill-primary-subtle: #fbe8e9;
+      --c-color-fill-neutral: #dfe1e3;
+      --c-color-fill-neutral-hover: #a0a6ac;
+      --c-color-fill-success-subtle: #ddf3ea;
+      --c-color-fill-info-subtle: #edeffb;
+      --c-color-fill-error-subtle: #fbe8e9;
+      --c-color-fill-caution-subtle: #fff9ed;
+
+      /* --- Semantic: Text --- */
+      --c-color-text-strong: #272a2f;
+      --c-color-text: #4e555e;
+      --c-color-text-hover: #3a4046;
+      --c-color-text-subtle: #818891;
+      --c-color-text-disabled: #818891;
+      --c-color-text-inverse: #ffffff;
+      --c-color-text-success: #1f7e5a;
+      --c-color-text-error: #d71920;
+      --c-color-text-info: #4e63d7;
+      --c-color-text-caution: #e86427;
+      --c-color-text-warning: #ffc350;
+
+      /* --- Semantic: Borders --- */
+      --c-color-border: #4e555e;
+      --c-color-border-strong: #818891;
+      --c-color-border-subtle: #c0c3c8;
+      --c-color-border-success: #1f7e5a;
+      --c-color-border-error: #df474d;
+      --c-color-border-info: #4e63d7;
+
+      /* --- Border Tokens --- */
+      --c-border-width-regular: 2px;
+      --c-border-width-strong: 3px;
+      --c-border-width-subtle: 1px;
+      --c-border-radius-none: 0;
+      --c-border-radius-xsmall: 4px;
+      --c-border-radius-small: 8px;
+      --c-border-radius-medium: 16px;
+      --c-border-radius-large: 24px;
+      --c-border-radius-xlarge: 99px;
+
+      /* --- Typography --- */
+      --c-font-family-headline: 'Rubik', sans-serif;
+      --c-font-family-body: 'Roboto', sans-serif;
+
+      /* --- Spacing --- */
+      --c-spacing-0: 0px;
+      --c-spacing-1: 4px;
+      --c-spacing-2: 8px;
+      --c-spacing-3: 12px;
+      --c-spacing-4: 16px;
+      --c-spacing-5: 24px;
+      --c-spacing-6: 32px;
+      --c-spacing-7: 48px;
+      --c-spacing-8: 64px;
+      --c-spacing-9: 80px;
+
+      /* --- Shadows --- */
+      --shadow-bottom-subtle: 0 1px 2px #4e555e40;
+      --shadow-bottom-regular: 0 2px 2px #4e555e40;
+
+      /* --- Focus --- */
+      --shadow-focus-regular: 0 0 0 3px #4e63d780;
+    }
+
+    /* ============================================
+       RESET & BASE
+       ============================================ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--c-font-family-body);
+      font-size: 16px;
+      line-height: 24px;
+      color: var(--c-color-text);
+      background-color: var(--c-color-bg);
+      padding-bottom: var(--c-spacing-9);
+    }
+
+    /* ============================================
+       TYPOGRAPHY UTILITIES
+       ============================================ */
+    .headline1 { font-family: var(--c-font-family-headline); font-size: 38px; line-height: 54px; font-weight: 700; color: var(--c-color-text-strong); }
+    .headline2 { font-family: var(--c-font-family-headline); font-size: 40px; line-height: 44px; font-weight: 700; color: var(--c-color-text-strong); }
+    .headline3 { font-family: var(--c-font-family-headline); font-size: 32px; line-height: 36px; font-weight: 500; color: var(--c-color-text-strong); }
+    .headline4 { font-family: var(--c-font-family-headline); font-size: 24px; line-height: 28px; font-weight: 500; color: var(--c-color-text-strong); }
+    .headline5 { font-family: var(--c-font-family-headline); font-size: 20px; line-height: 24px; font-weight: 500; color: var(--c-color-text-strong); }
+    .headline6 { font-family: var(--c-font-family-headline); font-size: 18px; line-height: 22px; font-weight: 500; color: var(--c-color-text-strong); }
+    .titlelarge { font-family: var(--c-font-family-headline); font-size: 18px; line-height: 28px; font-weight: 500; }
+    .titlemedium { font-family: var(--c-font-family-headline); font-size: 16px; line-height: 24px; font-weight: 500; }
+    .titlesmall { font-family: var(--c-font-family-headline); font-size: 14px; line-height: 20px; font-weight: 500; }
+    .bodylarge { font-size: 18px; line-height: 28px; font-weight: 400; }
+    .bodymedium { font-size: 16px; line-height: 24px; font-weight: 400; }
+    .bodysmall { font-size: 14px; line-height: 20px; font-weight: 400; }
+    .labelsmall { font-size: 14px; line-height: 20px; font-weight: 500; }
+    .caption { font-size: 12px; line-height: 16px; font-weight: 400; color: var(--c-color-text-subtle); }
+    .overline { font-size: 10px; line-height: 14px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; color: var(--c-color-text-subtle); }
+
+    /* Mobile typography overrides */
+    @media (max-width: 1024px) {
+      .headline1 { font-size: 32px; line-height: 36px; }
+      .headline2 { font-size: 28px; line-height: 32px; }
+      .headline3 { font-size: 24px; line-height: 28px; }
+      .headline4 { font-size: 20px; line-height: 24px; }
+      .headline5 { font-size: 18px; line-height: 22px; }
+      .headline6 { font-size: 16px; line-height: 20px; }
+    }
+
+    /* ============================================
+       LAYOUT
+       ============================================ */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 var(--c-spacing-4);
+    }
+
+    /* ============================================
+       HEADER
+       ============================================ */
+    .app-header {
+      background: var(--c-color-surface);
+      border-bottom: var(--c-border-width-subtle) solid var(--c-color-border-subtle);
+      padding: var(--c-spacing-4) 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--c-spacing-4);
+    }
+
+    .header-brand {
+      display: flex;
+      align-items: center;
+      gap: var(--c-spacing-3);
+    }
+
+    .header-logo {
+      font-family: var(--c-font-family-headline);
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--c-color-text-strong);
+      text-decoration: none;
+    }
+
+    .header-logo span {
+      color: var(--c-color-text-error);
+    }
+
+    .header-tag {
+      font-size: 12px;
+      line-height: 16px;
+      font-weight: 500;
+      color: var(--c-color-text-inverse);
+      background: var(--c-color-fill-primary);
+      padding: 2px var(--c-spacing-2);
+      border-radius: var(--c-border-radius-xlarge);
+    }
+
+    /* ============================================
+       HERO
+       ============================================ */
+    .hero {
+      background: linear-gradient(135deg, var(--c-gray-900) 0%, var(--c-gray-800) 100%);
+      color: var(--c-color-text-inverse);
+      padding: var(--c-spacing-8) 0;
+      text-align: left;
+    }
+
+    .hero .overline {
+      color: var(--c-color-text-warning);
+    }
+
+    .hero h1 {
+      color: var(--c-color-text-inverse);
+      margin: var(--c-spacing-2) 0 var(--c-spacing-3) 0;
+      max-width: 700px;
+    }
+
+    .hero p {
+      color: var(--c-gray-300);
+      max-width: 600px;
+      font-size: 18px;
+      line-height: 28px;
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: var(--c-spacing-3);
+      margin-top: var(--c-spacing-6);
+    }
+
+    .hero-stat {
+      background: rgba(255,255,255,0.06);
+      border: var(--c-border-width-subtle) solid rgba(255,255,255,0.1);
+      border-radius: var(--c-border-radius-small);
+      padding: var(--c-spacing-4);
+    }
+
+    .hero-stat-value {
+      font-family: var(--c-font-family-headline);
+      font-size: 28px;
+      line-height: 32px;
+      font-weight: 700;
+      color: var(--c-color-text-inverse);
+    }
+
+    .hero-stat-label {
+      font-size: 12px;
+      line-height: 16px;
+      color: var(--c-gray-300);
+      margin-top: var(--c-spacing-1);
+    }
+
+    /* ============================================
+       SECTIONS
+       ============================================ */
+    .section {
+      padding: var(--c-spacing-7) 0;
+    }
+
+    .section-header {
+      margin-bottom: var(--c-spacing-5);
+    }
+
+    .section-header h2 {
+      margin-bottom: var(--c-spacing-2);
+    }
+
+    .section-header .bajada {
+      color: var(--c-color-text-subtle);
+      max-width: 700px;
+    }
+
+    /* ============================================
+       CARDS
+       ============================================ */
+    .card {
+      background: var(--c-color-surface);
+      border-radius: var(--c-border-radius-medium);
+      border: var(--c-border-width-subtle) solid var(--c-color-border-subtle);
+      padding: var(--c-spacing-5);
+      box-shadow: var(--shadow-bottom-subtle);
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: var(--c-spacing-4);
+    }
+
+    /* ============================================
+       SALARY CARDS
+       ============================================ */
+    .salary-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--c-spacing-4);
+    }
+
+    .salary-card {
+      background: var(--c-color-surface-neutral-subtle);
+      border: var(--c-border-width-subtle) solid var(--c-color-border-subtle);
+      border-radius: var(--c-border-radius-small);
+      padding: var(--c-spacing-4);
+      text-align: center;
+    }
+
+    .salary-card.highlight {
+      background: var(--c-color-surface-info-subtle);
+      border-color: var(--c-color-border-info);
+    }
+
+    .salary-card .label {
+      font-size: 12px;
+      line-height: 16px;
+      color: var(--c-color-text-subtle);
+      margin-bottom: var(--c-spacing-1);
+    }
+
+    .salary-card .value {
+      font-family: var(--c-font-family-headline);
+      font-size: 24px;
+      line-height: 28px;
+      font-weight: 700;
+      color: var(--c-color-text-strong);
+    }
+
+    .salary-card.highlight .value {
+      color: var(--c-color-text-info);
+    }
+
+    /* ============================================
+       TABLES
+       ============================================ */
+    .table-wrapper {
+      overflow-x: auto;
+      border-radius: var(--c-border-radius-small);
+      border: var(--c-border-width-subtle) solid var(--c-color-border-subtle);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      line-height: 20px;
+    }
+
+    thead th {
+      background: var(--c-color-surface-neutral-subtle);
+      color: var(--c-color-text-strong);
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      padding: var(--c-spacing-3) var(--c-spacing-4);
+      border-bottom: var(--c-border-width-regular) solid var(--c-color-border-subtle);
+      text-align: left;
+      white-space: nowrap;
+    }
+
+    tbody td {
+      padding: var(--c-spacing-3) var(--c-spacing-4);
+      border-bottom: var(--c-border-width-subtle) solid var(--c-gray-100);
+      height: 40px;
+      color: var(--c-color-text);
+    }
+
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    tbody tr:hover {
+      background: var(--c-color-surface-hover);
+    }
+
+    /* ============================================
+       BADGES
+       ============================================ */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--c-spacing-1);
+      padding: 2px var(--c-spacing-2);
+      border-radius: var(--c-border-radius-xsmall);
+      font-size: 12px;
+      line-height: 16px;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .badge-success {
+      background: var(--c-color-fill-success-subtle);
+      color: var(--c-color-text-success);
+    }
+
+    .badge-error {
+      background: var(--c-color-fill-error-subtle);
+      color: var(--c-color-text-error);
+    }
+
+    .badge-info {
+      background: var(--c-color-fill-info-subtle);
+      color: var(--c-color-text-info);
+    }
+
+    .badge-caution {
+      background: var(--c-color-fill-caution-subtle);
+      color: var(--c-color-text-caution);
+    }
+
+    .badge-neutral {
+      background: var(--c-color-fill-neutral);
+      color: var(--c-color-text);
+    }
+
+    /* ============================================
+       POWER PURCHASE INDICATOR
+       ============================================ */
+    .pp-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--c-spacing-1);
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .pp-old {
+      color: var(--c-color-text-subtle);
+      text-decoration: line-through;
+      text-decoration-color: var(--c-color-text-subtle);
+    }
+
+    .pp-arrow {
+      color: var(--c-color-text-subtle);
+      font-size: 12px;
+    }
+
+    .pp-new {
+      color: var(--c-color-text-strong);
+      font-weight: 700;
+    }
+
+    .pp-new.danger {
+      color: var(--c-color-text-error);
+    }
+
+    /* ============================================
+       CALCULATOR
+       ============================================ */
+    .calculator {
+      background: var(--c-color-surface);
+      border-radius: var(--c-border-radius-medium);
+      border: var(--c-border-width-regular) solid var(--c-color-border-info);
+      padding: var(--c-spacing-5);
+    }
+
+    .calculator h3 {
+      margin-bottom: var(--c-spacing-2);
+    }
+
+    .calculator .helper {
+      color: var(--c-color-text-subtle);
+      font-size: 14px;
+      margin-bottom: var(--c-spacing-4);
+    }
+
+    .input-group {
+      display: flex;
+      gap: var(--c-spacing-3);
+      align-items: flex-end;
+      flex-wrap: wrap;
+    }
+
+    .input-field {
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .input-field label {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--c-color-text-strong);
+      margin-bottom: var(--c-spacing-1);
+    }
+
+    .input-field input {
+      width: 100%;
+      height: 48px;
+      padding: 0 var(--c-spacing-4);
+      border: var(--c-border-width-regular) solid var(--c-color-border-subtle);
+      border-radius: var(--c-border-radius-small);
+      font-family: var(--c-font-family-body);
+      font-size: 16px;
+      color: var(--c-color-text-strong);
+      background: var(--c-color-surface);
+      outline: none;
+      transition: border-color 0.15s;
+    }
+
+    .input-field input:focus {
+      border-color: var(--c-color-border-info);
+      box-shadow: var(--shadow-focus-regular);
+    }
+
+    .input-field input::placeholder {
+      color: var(--c-color-text-disabled);
+    }
+
+    /* ============================================
+       BUTTONS
+       ============================================ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--c-spacing-2);
+      height: 40px;
+      padding: 0 var(--c-spacing-5);
+      border-radius: var(--c-border-radius-xlarge);
+      font-family: var(--c-font-family-body);
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 24px;
+      cursor: pointer;
+      border: none;
+      text-decoration: none;
+      transition: background-color 0.15s, color 0.15s;
+      outline: none;
+      white-space: nowrap;
+    }
+
+    .btn:focus-visible {
+      box-shadow: var(--shadow-focus-regular);
+    }
+
+    .btn-primary {
+      background: var(--c-color-fill-primary);
+      color: var(--c-color-text-inverse);
+    }
+
+    .btn-primary:hover {
+      background: var(--c-color-fill-primary-hover);
+    }
+
+    .btn-primary:active {
+      background: var(--c-color-fill-primary-pressed);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--c-color-text-strong);
+      border: var(--c-border-width-regular) solid var(--c-color-border);
+    }
+
+    .btn-secondary:hover {
+      background: var(--c-color-surface-hover);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--c-color-text);
+    }
+
+    .btn-ghost:hover {
+      background: var(--c-color-surface-hover);
+      color: var(--c-color-text-strong);
+    }
+
+    /* Mobile button */
+    @media (max-width: 768px) {
+      .btn {
+        height: 48px;
+        width: 90%;
+        max-width: 100%;
+      }
+      .input-field input {
+        height: 48px;
+      }
+    }
+
+    /* ============================================
+       ALERTS
+       ============================================ */
+    .alert {
+      display: flex;
+      gap: var(--c-spacing-3);
+      padding: var(--c-spacing-4);
+      border-radius: var(--c-border-radius-small);
+      border-left: var(--c-border-width-strong) solid;
+      font-size: 14px;
+      line-height: 20px;
+    }
+
+    .alert-info {
+      background: var(--c-color-surface-info-subtle);
+      border-left-color: var(--c-color-border-info);
+      color: var(--c-color-text-info);
+    }
+
+    .alert-warning {
+      background: var(--c-color-surface-warning-subtle);
+      border-left-color: var(--c-color-text-warning);
+      color: var(--c-color-text-caution);
+    }
+
+    .alert-error {
+      background: var(--c-color-surface-error-subtle);
+      border-left-color: var(--c-color-border-error);
+      color: var(--c-color-text-error);
+    }
+
+    .alert-success {
+      background: var(--c-color-surface-success-subtle);
+      border-left-color: var(--c-color-border-success);
+      color: var(--c-color-text-success);
+    }
+
+    .alert-icon {
+      flex-shrink: 0;
+      font-size: 18px;
+      line-height: 20px;
+    }
+
+    /* ============================================
+       RESULT PANEL
+       ============================================ */
+    .result-panel {
+      background: var(--c-color-surface-info-subtle);
+      border-radius: var(--c-border-radius-small);
+      padding: var(--c-spacing-5);
+      margin-top: var(--c-spacing-4);
+      display: none;
+    }
+
+    .result-panel.visible {
+      display: block;
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: var(--c-spacing-4);
+    }
+
+    .result-item {
+      text-align: center;
+    }
+
+    .result-item .result-value {
+      font-family: var(--c-font-family-headline);
+      font-size: 28px;
+      line-height: 32px;
+      font-weight: 700;
+      color: var(--c-color-text-strong);
+    }
+
+    .result-item .result-label {
+      font-size: 12px;
+      line-height: 16px;
+      color: var(--c-color-text-subtle);
+      margin-top: var(--c-spacing-1);
+    }
+
+    /* ============================================
+       CHART CONTAINER
+       ============================================ */
+    .chart-container {
+      position: relative;
+      height: 320px;
+      margin-top: var(--c-spacing-4);
+    }
+
+    /* ============================================
+       SHARE CARD (para redes)
+       ============================================ */
+    .share-card {
+      background: linear-gradient(135deg, var(--c-gray-900) 0%, var(--c-gray-800) 100%);
+      border-radius: var(--c-border-radius-medium);
+      padding: var(--c-spacing-6);
+      color: var(--c-color-text-inverse);
+      text-align: center;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .share-card .share-overline {
+      font-size: 10px;
+      line-height: 14px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--c-gray-400);
+    }
+
+    .share-card .share-headline {
+      font-family: var(--c-font-family-headline);
+      font-size: 32px;
+      line-height: 36px;
+      font-weight: 700;
+      margin: var(--c-spacing-3) 0;
+    }
+
+    .share-card .share-headline em {
+      color: var(--c-color-text-warning);
+      font-style: normal;
+    }
+
+    .share-card .share-sub {
+      color: var(--c-gray-300);
+      font-size: 14px;
+      line-height: 20px;
+    }
+
+    /* ============================================
+       FOOTER
+       ============================================ */
+    .app-footer {
+      background: var(--c-gray-900);
+      color: var(--c-gray-400);
+      padding: var(--c-spacing-6) 0;
+      margin-top: var(--c-spacing-8);
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: var(--c-spacing-5);
+      flex-wrap: wrap;
+    }
+
+    .footer-brand {
+      font-family: var(--c-font-family-headline);
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--c-color-text-inverse);
+    }
+
+    .footer-brand span {
+      color: var(--c-color-text-error);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: var(--c-spacing-5);
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: var(--c-gray-400);
+      text-decoration: none;
+      font-size: 14px;
+      line-height: 20px;
+    }
+
+    .footer-links a:hover {
+      color: var(--c-color-text-inverse);
+    }
+
+    .footer-copy {
+      margin-top: var(--c-spacing-4);
+      font-size: 12px;
+      line-height: 16px;
+      color: var(--c-gray-500);
+      width: 100%;
+    }
+
+    /* ============================================
+       RESPONSIVE
+       ============================================ */
+    @media (max-width: 768px) {
+      .hero { padding: var(--c-spacing-6) 0; }
+      .hero-stats { grid-template-columns: repeat(2, 1fr); }
+      .salary-grid { grid-template-columns: 1fr; }
+      .section { padding: var(--c-spacing-6) 0; }
+      .card { padding: var(--c-spacing-4); }
+      .calculator { padding: var(--c-spacing-4); }
+      .share-card { padding: var(--c-spacing-5); }
+      .share-card .share-headline { font-size: 24px; line-height: 28px; }
+    }
+
+    @media (max-width: 480px) {
+      .hero-stats { grid-template-columns: 1fr; }
+      .input-group { flex-direction: column; }
+      .input-field { min-width: 100%; }
+    }
+
+    /* ============================================
+       REDUCED MOTION
+       ============================================ */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* ============================================
+       SKIP LINK (accesibilidad)
+       ============================================ */
+    .skip-link {
+      position: absolute;
+      top: -100px;
+      left: var(--c-spacing-4);
+      background: var(--c-color-fill-primary);
+      color: var(--c-color-text-inverse);
+      padding: var(--c-spacing-2) var(--c-spacing-4);
+      border-radius: var(--c-border-radius-small);
+      z-index: 200;
+      font-size: 14px;
+      text-decoration: none;
+    }
+
+    .skip-link:focus {
+      top: var(--c-spacing-4);
+    }
+  </style>
+</head>
+<body>
+
+  <a href="#contenido" class="skip-link">Saltar al contenido principal</a>
+
+  <!-- ==========================================
+       HEADER
+       ========================================== -->
+  <header class="app-header" role="banner">
+    <div class="container header-inner">
+      <div class="header-brand">
+        <a href="#" class="header-logo" aria-label="Radiografía del Bolsillo Argentino">
+          Radiografía<span>.</span>
+        </a>
+        <span class="header-tag">Datos en vivo</span>
+      </div>
+      <nav aria-label="Navegación principal">
+        <a href="#calculadora" class="btn btn-ghost" style="font-size:14px; height:36px; padding:0 var(--c-spacing-3);">Mi presupuesto</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenido">
+
+    <!-- ==========================================
+         HERO
+         ========================================== -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="container">
+        <p class="overline">Análisis macroeconómico · 2023 – 2026</p>
+        <h1 id="hero-title" class="headline1">Tu sueldo no perdió contra la inflación. Perdió contra la góndola.</h1>
+        <p>Mientras los medios te muestran un número de IPC, acá cruzamos precios reales, tarifas y salarios para que veas cuánto podés comprar hoy con lo que ganás.</p>
+
+        <div class="hero-stats" role="list">
+          <div class="hero-stat" role="listitem">
+            <div class="hero-stat-value">+330%</div>
+            <div class="hero-stat-label">IPC acumulado (Dic 2023 – hoy)</div>
+          </div>
+          <div class="hero-stat" role="listitem">
+            <div class="hero-stat-value">+410%</div>
+            <div class="hero-stat-label">Variación de la nalga</div>
+          </div>
+          <div class="hero-stat" role="listitem">
+            <div class="hero-stat-value">-48%</div>
+            <div class="hero-stat-label">Poder de compra de carne</div>
+          </div>
+          <div class="hero-stat" role="listitem">
+            <div class="hero-stat-value">$391.200</div>
+            <div class="hero-stat-label">SMVM actual</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SALARIO
+         ========================================== -->
+    <section class="section" aria-labelledby="salario-title">
+      <div class="container">
+        <div class="section-header">
+          <h2 id="salario-title" class="headline4">Evolución del Salario Mínimo</h2>
+        </div>
+        <div class="salary-grid">
+          <div class="salary-card">
+            <div class="label">Principios 2023</div>
+            <div class="value">$65.427</div>
+          </div>
+          <div class="salary-card">
+            <div class="label">Fines de 2023</div>
+            <div class="value">$156.000</div>
+          </div>
+          <div class="salary-card highlight">
+            <div class="label">Valor actual</div>
+            <div class="value">$391.200</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         ALIMENTOS
+         ========================================== -->
+    <section class="section" aria-labelledby="alimentos-title" style="background:var(--c-color-surface);">
+      <div class="container">
+        <div class="section-header">
+          <h2 id="alimentos-title" class="headline4">🛒 Alimentos básicos vs. inflación</h2>
+          <p class="bajada">Variación de la góndola y desvío contra el IPC oficial. El badge indica si el producto le ganó o perdió a la inflación.</p>
+        </div>
+
+        <div class="table-wrapper">
+          <table aria-label="Precios de alimentos básicos y su variación">
+            <thead>
+              <tr>
+                <th scope="col">Producto</th>
+                <th scope="col">Princ. 2023</th>
+                <th scope="col">Dic 2023</th>
+                <th scope="col">Hoy</th>
+                <th scope="col">Variación</th>
+                <th scope="col">Desvío vs IPC</th>
+                <th scope="col">Poder de compra</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Leche entera (1L)</strong></td>
+                <td>$216</td>
+                <td>$457</td>
+                <td><strong>$2.000</strong></td>
+                <td>+337,6%</td>
+                <td><span class="badge badge-caution">+7,6% (Empate)</span></td>
+                <td>
+                  <span class="pp-indicator">
+                    <span class="pp-old">302L</span>
+                    <span class="pp-arrow">→</span>
+                    <span class="pp-new danger">195L</span>
+                  </span>
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Pan francés (1 kg)</strong></td>
+                <td>$460</td>
+                <td>$1.200</td>
+                <td><strong>$4.910</strong></td>
+                <td>+309,2%</td>
+                <td><span class="badge badge-success">-20,8% (A favor)</span></td>
+                <td>
+                  <span class="pp-indicator">
+                    <span class="pp-old">142kg</span>
+                    <span class="pp-arrow">→</span>
+                    <span class="pp-new danger">79kg</span>
+                  </span>
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Nalga (1 kg)</strong></td>
+                <td>$1.850</td>
+                <td>$4.200</td>
+                <td><strong>$21.448</strong></td>
+                <td>+410,7%</td>
+                <td><span class="badge badge-error">+80,7% (Encima)</span></td>
+                <td>
+                  <span class="pp-indicator">
+                    <span class="pp-old">35kg</span>
+                    <span class="pp-arrow">→</span>
+                    <span class="pp-new danger">18kg</span>
+                  </span>
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Asado (1 kg)</strong></td>
+                <td>$1.400</td>
+                <td>$4.750</td>
+                <td><strong>$16.736</strong></td>
+                <td>+252,3%</td>
+                <td><span class="badge badge-success">-77,7% (A favor)</span></td>
+                <td>
+                  <span class="pp-indicator">
+                    <span class="pp-old">46kg</span>
+                    <span class="pp-arrow">→</span>
+                    <span class="pp-new danger">23kg</span>
+                  </span>
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Carne picada (1 kg)</strong></td>
+                <td>$950</td>
+                <td>$2.500</td>
+                <td><strong>$10.613</strong></td>
+                <td>+324,5%</td>
+                <td><span class="badge badge-caution">+5,5% (Empate)</span></td>
+                <td>
+                  <span class="pp-indicator">
+                    <span class="pp-old">69kg</span>
+                    <span class="pp-arrow">→</span>
+                    <span class="pp-new danger">37kg</span>
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="alert alert-warning" role="alert" style="margin-top:var(--c-spacing-4);">
+          <span class="alert-icon" aria-hidden="true">⚠</span>
+          <div>
+            <strong>La carne vacuna es el producto que más castigó tu poder de compra.</strong> La nalga subió 80,7% por encima del IPC. Hoy comprás casi la mitad de kilos que a principios de 2023.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SERVICIOS
+         ========================================== -->
+    <section class="section" aria-labelledby="servicios-title">
+      <div class="container">
+        <div class="section-header">
+          <h2 id="servicios-title" class="headline4">⚡ Servicios y tarifas</h2>
+          <p class="bajada">El costo fijo que se come tu sueldo antes de que llegues a la góndola.</p>
+        </div>
+
+        <div class="table-wrapper">
+          <table aria-label="Tarifas de servicios públicos y su variación">
+            <thead>
+              <tr>
+                <th scope="col">Servicio</th>
+                <th scope="col">Princ. 2023</th>
+                <th scope="col">Dic 2023</th>
+                <th scope="col">Hoy (promedio)</th>
+                <th scope="col">Variación</th>
+                <th scope="col">% del SMVM</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Electricidad (N2 – bajos ingresos)</strong></td>
+                <td>$2.100</td>
+                <td>$8.500</td>
+                <td><strong>$23.463</strong></td>
+                <td>+1.017%</td>
+                <td><span class="badge badge-error">6,0%</span></td>
+              </tr>
+              <tr>
+                <td><strong>Gas natural (N2)</strong></td>
+                <td>$1.800</td>
+                <td>$7.200</td>
+                <td><strong>$18.500</strong></td>
+                <td>+928%</td>
+                <td><span class="badge badge-caution">4,7%</span></td>
+              </tr>
+              <tr>
+                <td><strong>Agua (AySA – residencial)</strong></td>
+                <td>$900</td>
+                <td>$3.500</td>
+                <td><strong>$9.800</strong></td>
+                <td>+989%</td>
+                <td><span class="badge badge-caution">2,5%</span></td>
+              </tr>
+              <tr>
+                <td><strong>Transporte (Subte, 60 viajes/mes)</strong></td>
+                <td>$3.600</td>
+                <td>$7.500</td>
+                <td><strong>$45.600</strong></td>
+                <td>+1.167%</td>
+                <td><span class="badge badge-error">11,7%</span></td>
+              </tr>
+              <tr>
+                <td><strong>Internet + Cable (promedio)</strong></td>
+                <td>$4.500</td>
+                <td>$12.000</td>
+                <td><strong>$38.000</strong></td>
+                <td>+744%</td>
+                <td><span class="badge badge-caution">9,7%</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="alert alert-error" role="alert" style="margin-top:var(--c-spacing-4);">
+          <span class="alert-icon" aria-hidden="true">🔴</span>
+          <div>
+            <strong>La canasta de servicios públicos en AMBA aumentó 526% entre dic/2023 y sept/2025</strong>, según el IIEP (UBA-CONICET). El transporte público pasó de representar el 5% del salario mínimo a más del 11%[reference:13].
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         CALCULADORA
+         ========================================== -->
+    <section class="section" aria-labelledby="calculadora-title" id="calculadora">
+      <div class="container">
+        <div class="section-header">
+          <h2 id="calculadora-title" class="headline4">🧮 Calculá tu realidad</h2>
+          <p class="bajada">Ingresá tu sueldo neto y te mostramos cuánto podés comprar hoy vs. principios de 2023.</p>
+        </div>
+
+        <div class="calculator">
+          <div class="input-group">
+            <div class="input-field">
+              <label for="sueldo">Tu sueldo neto mensual (en pesos)</label>
+              <input type="number" id="sueldo" placeholder="Ej: 850000" min="0" step="1000" inputmode="numeric" aria-describedby="sueldo-help">
+              <p id="sueldo-help" class="caption" style="margin-top:var(--c-spacing-1);">Ingresá el monto que cobrás en mano.</p>
+            </div>
+            <button class="btn btn-primary" id="calcular-btn" type="button" aria-label="Calcular poder de compra">
+              Calcular
+            </button>
+          </div>
+
+          <div class="result-panel" id="resultado" role="region" aria-live="polite" aria-label="Resultados del cálculo">
+            <div class="result-grid">
+              <div class="result-item">
+                <div class="result-value" id="res-nalga">—</div>
+                <div class="result-label">kg de nalga hoy</div>
+              </div>
+              <div class="result-item">
+                <div class="result-value" id="res-pan">—</div>
+                <div class="result-label">kg de pan hoy</div>
+              </div>
+              <div class="result-item">
+                <div class="result-value" id="res-leche">—</div>
+                <div class="result-label">litros de leche hoy</div>
+              </div>
+              <div class="result-item">
+                <div class="result-value" id="res-servicios">—</div>
+                <div class="result-label">% en servicios</div>
+              </div>
+            </div>
+            <div id="res-comparativa" style="margin-top:var(--c-spacing-4); text-align:center;"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         COMPARTIR
+         ========================================== -->
+    <section class="section" aria-labelledby="compartir-title">
+      <div class="container">
+        <div class="section-header" style="text-align:center;">
+          <h2 id="compartir-title" class="headline4">📸 Compartí tu resultado</h2>
+          <p class="bajada" style="margin:0 auto;">Generá una tarjeta visual con tu dato y compartila en redes.</p>
+        </div>
+
+        <div class="share-card" id="share-card">
+          <p class="share-overline">Radiografía del Bolsillo Argentino</p>
+          <p class="share-headline">Con mi sueldo hoy compro <em id="share-dato">—</em></p>
+          <p class="share-sub">Calculalo vos también en radiografia.ar</p>
+        </div>
+
+        <div style="display:flex; justify-content:center; gap:var(--c-spacing-3); margin-top:var(--c-spacing-5); flex-wrap:wrap;">
+          <button class="btn btn-secondary" id="btn-share" type="button" aria-label="Compartir resultado">
+            Compartir resultado
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==========================================
+       FOOTER
+       ========================================== -->
+  <footer class="app-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-inner">
+        <div>
+          <div class="footer-brand">Radiografía<span>.</span></div>
+          <p style="font-size:12px; margin-top:var(--c-spacing-1); color:var(--c-gray-500);">Datos que no te cuentan.</p>
+        </div>
+        <nav class="footer-links" aria-label="Enlaces del pie de página">
+          <a href="#">Metodología</a>
+          <a href="#">Fuentes</a>
+          <a href="#">Contacto</a>
+        </nav>
+      </div>
+      <p class="footer-copy">Fuentes: INDEC, datos.gob.ar, IIEP (UBA-CONICET), OCLA, Precios Claros. Los valores son promedios y pueden variar según región.</p>
+    </div>
+  </footer>
+
+  <script>
+    /* ============================================
+       DATA (Fase 1: hardcoded, Fase 2: API)
+       ============================================ */
+    const DATA = {
+      precios: {
+        nalga:  { hoy: 21448, dic2023: 4200 },
+        pan:    { hoy: 4910,  dic2023: 1200 },
+        leche:  { hoy: 2000,  dic2023: 457 }
+      },
+      servicios: {
+        total: 135363 // suma de electricidad + gas + agua + transporte + internet
+      },
+      salario: {
+        smvmActual: 391200
+      }
+    };
+
+    /* ============================================
+       CALCULADORA
+       ============================================ */
+    const sueldoInput = document.getElementById('sueldo');
+    const calcularBtn = document.getElementById('calcular-btn');
+    const resultado = document.getElementById('resultado');
+
+    calcularBtn.addEventListener('click', calcular);
+
+    sueldoInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') calcular();
+    });
+
+    function calcular() {
+      const sueldo = parseFloat(sueldoInput.value);
+
+      if (!sueldo || sueldo <= 0) {
+        alert('Ingresá un sueldo válido mayor a 0.');
+        sueldoInput.focus();
+        return;
+      }
+
+      const kgNalga = (sueldo / DATA.precios.nalga.hoy).toFixed(1);
+      const kgPan = (sueldo / DATA.precios.pan.hoy).toFixed(1);
+      const litrosLeche = (sueldo / DATA.precios.leche.hoy).toFixed(0);
+      const pctServicios = ((DATA.servicios.total / sueldo) * 100).toFixed(1);
+
+      document.getElementById('res-nalga').textContent = kgNalga + ' kg';
+      document.getElementById('res-pan').textContent = kgPan + ' kg';
+      document.getElementById('res-leche').textContent = litrosLeche + ' L';
+      document.getElementById('res-servicios').textContent = pctServicios + '%';
+
+      // Comparativa vs Dic 2023
+      const kgNalgaDic = (sueldo / DATA.precios.nalga.dic2023).toFixed(1);
+      const perdida = (((kgNalgaDic - kgNalga) / kgNalgaDic) * 100).toFixed(0);
+
+      const compEl = document.getElementById('res-comparativa');
+      if (perdida > 0) {
+        compEl.innerHTML = `<span class="badge badge-error" style="font-size:14px; padding:6px 12px;">📉 Perdiste ${perdida}% de poder de compra en carne desde Dic 2023</span>`;
+      } else {
+        compEl.innerHTML = `<span class="badge badge-success" style="font-size:14px; padding:6px 12px;">📈 Ganaste ${Math.abs(perdida)}% de poder de compra en carne desde Dic 2023</span>`;
+      }
+
+      // Share card
+      document.getElementById('share-dato').textContent = kgNalga + ' kg de nalga';
+
+      resultado.classList.add('visible');
+      resultado.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    /* ============================================
+       SHARE
+       ============================================ */
+    document.getElementById('btn-share').addEventListener('click', () => {
+      const dato = document.getElementById('share-dato').textContent;
+      const texto = `Con mi sueldo hoy compro ${dato}. Calculá el tuyo en Radiografía del Bolsillo Argentino.`;
+      const url = window.location.href;
+
+      if (navigator.share) {
+        navigator.share({ title: 'Radiografía del Bolsillo Argentino', text: texto, url: url });
+      } else {
+        navigator.clipboard.writeText(`${texto} ${url}`).then(() => {
+          alert('Texto copiado al portapapeles. Pegalo en tu red social favorita.');
+        });
+      }
+    });
+  </script>
+
+</body>
+</html>
