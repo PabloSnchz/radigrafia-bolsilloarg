@@ -1,6 +1,8 @@
 """
 Scraper de precios de supermercados argentinos.
-Usa Playwright para renderizar JavaScript y extraer precios reales.
+
+- Carrefour y Jumbo: API VTEX (JSON, sin scraping HTML)
+- Coto: Playwright con selectores + screenshots de debug
 """
 
 import asyncio
@@ -8,46 +10,132 @@ import json
 import re
 import random
 import sys
+import urllib.parse
 from datetime import datetime, timezone
 from pathlib import Path
 
+import httpx
 from playwright.async_api import async_playwright, TimeoutError as PlaywrightTimeout
 
-# Importar config local
 sys.path.insert(0, str(Path(__file__).parent))
 from config import (
     PRODUCTOS, SUPERMERCADOS, USER_AGENTS,
-    PAGE_TIMEOUT, DELAY_BETWEEN_REQUESTS,
+    PAGE_TIMEOUT, DELAY_BETWEEN_REQUESTS, DEBUG_DIR,
 )
 
-# Ruta de salida
 OUTPUT_PATH = Path(__file__).parent.parent / "data" / "precios.json"
+DEBUG_PATH = Path(__file__).parent / DEBUG_DIR
+DEBUG_PATH.mkdir(exist_ok=True)
 
 
-def limpiar_precio(texto: str) -> float | None:
-    """Convierte '$ 21.448,00' → 21448.0"""
-    if not texto:
+# ============================================
+# UTILS
+# ============================================
+def limpiar_precio(texto) -> float | None:
+    """Convierte '$ 21.448,00' o 21448.0 → 21448.0"""
+    if texto is None:
         return None
-    # Extraer solo números, puntos y comas
-    limpio = re.sub(r"[^\d.,]", "", texto)
-    # Formato argentino: 21.448,00 → 21448.00
-    limpio = limpio.replace(".", "").replace(",", ".")
+    if isinstance(texto, (int, float)):
+        return float(texto)
+    limpio = re.sub(r"[^\d.,]", "", str(texto))
+    if not limpio:
+        return None
+    # Detectar formato argentino vs. americano
+    if "," in limpio and "." in limpio:
+        if limpio.rfind(",") > limpio.rfind("."):
+            limpio = limpio.replace(".", "").replace(",", ".")
+        else:
+            limpio = limpio.replace(",", "")
+    elif "," in limpio:
+        limpio = limpio.replace(",", ".")
     try:
         return float(limpio)
     except ValueError:
         return None
 
 
-async def scrape_producto(page, url: str, selectores: dict) -> list[dict]:
-    """Entra a una URL de búsqueda y devuelve lista de productos con precio."""
+def filtrar_por_unidad(productos: list[dict], busqueda: str) -> float | None:
+    """Devuelve el precio del producto que mejor matchea (el más barato)."""
+    if not productos:
+        return None
+    termino = busqueda.lower()
+    candidatos = [p for p in productos if termino in p["nombre"].lower()]
+    if not candidatos:
+        candidatos = productos
+    candidatos.sort(key=lambda x: x["precio"])
+    return candidatos[0]["precio"] if candidatos else None
+
+
+# ============================================
+# SCRAPER VTEX (Carrefour, Jumbo)
+# ============================================
+async def scrape_vtex(client: httpx.AsyncClient, config: dict) -> dict:
+    """Scrapea un supermercado vía API VTEX. Devuelve {producto_id: precio}."""
+    print(f"\n🏪 Scrapeando {config['nombre']} (VTEX API)...")
+    resultados = {}
+
+    for producto in PRODUCTOS:
+        query = urllib.parse.quote(producto["busqueda"])
+        url = config["api_url"].replace("{query}", query)
+        print(f"  → {producto['nombre']}...", end=" ", flush=True)
+
+        try:
+            res = await client.get(url, timeout=15)
+            if res.status_code != 200:
+                print(f"HTTP {res.status_code}")
+                continue
+
+            data = res.json()
+            if not isinstance(data, list):
+                print("respuesta inválida")
+                continue
+
+            # Extraer productos con nombre y precio
+            encontrados = []
+            for item in data:
+                try:
+                    nombre = item.get("productName", "")
+                    items = item.get("items", [])
+                    if not items:
+                        continue
+                    sellers = items[0].get("sellers", [])
+                    if not sellers:
+                        continue
+                    offer = sellers[0].get("commertialOffer", {})
+                    precio = offer.get("Price")
+                    if nombre and precio and precio > 0:
+                        encontrados.append({"nombre": nombre, "precio": float(precio)})
+                except (KeyError, IndexError, TypeError):
+                    continue
+
+            precio = filtrar_por_unidad(encontrados, producto["busqueda"])
+            if precio:
+                resultados[producto["id"]] = precio
+                print(f"${precio:,.0f}")
+            else:
+                print(f"sin datos ({len(data)} productos en respuesta)")
+        except Exception as e:
+            print(f"error: {e}")
+
+        await asyncio.sleep(DELAY_BETWEEN_REQUESTS)
+
+    return resultados
+
+
+# ============================================
+# SCRAPER PLAYWRIGHT (Coto)
+# ============================================
+async def scrape_producto_playwright(page, url: str, selectores: dict, slug: str) -> list[dict]:
+    """Extrae lista de productos de una página de búsqueda."""
     resultados = []
     try:
         await page.goto(url, timeout=PAGE_TIMEOUT, wait_until="domcontentloaded")
-        # Esperar a que carguen los productos (ajustable por sitio)
         await page.wait_for_timeout(4000)
 
         productos = await page.query_selector_all(selectores["producto"])
-        for prod in productos[:5]:  # solo los primeros 5 resultados
+        print(f"[{len(productos)} items]", end=" ", flush=True)
+
+        for prod in productos[:10]:
             try:
                 nombre_el = await prod.query_selector(selectores["nombre"])
                 precio_el = await prod.query_selector(selectores["precio"])
@@ -60,33 +148,23 @@ async def scrape_producto(page, url: str, selectores: dict) -> list[dict]:
                     resultados.append({"nombre": nombre, "precio": precio})
             except Exception:
                 continue
+
+        # Screenshot de debug
+        try:
+            await page.screenshot(path=str(DEBUG_PATH / f"coto_{slug}.png"), full_page=False)
+        except Exception:
+            pass
+
     except PlaywrightTimeout:
-        print(f"  ⏱️  Timeout en {url}")
+        print("timeout")
     except Exception as e:
-        print(f"  ❌ Error: {e}")
+        print(f"error: {e}")
     return resultados
 
 
-def filtrar_por_unidad(productos: list[dict], busqueda: str) -> float | None:
-    """
-    Toma la lista de productos y devuelve el precio del que mejor matchea.
-    Prioriza coincidencia exacta con el término de búsqueda.
-    """
-    if not productos:
-        return None
-    # Filtrar los que contienen el término de búsqueda en el nombre
-    termino = busqueda.lower()
-    candidatos = [p for p in productos if termino in p["nombre"].lower()]
-    if not candidatos:
-        candidatos = productos  # fallback: cualquier resultado
-    # Ordenar por precio (el más barato como referencia)
-    candidatos.sort(key=lambda x: x["precio"])
-    return candidatos[0]["precio"] if candidatos else None
-
-
-async def scrape_supermercado(nombre_super: str, config: dict) -> dict:
-    """Scrapea todos los productos de un supermercado."""
-    print(f"\n🏪 Scrapeando {config['nombre']}...")
+async def scrape_coto(config: dict) -> dict:
+    """Scrapea Coto con Playwright."""
+    print(f"\n🏪 Scrapeando {config['nombre']} (Playwright)...")
     resultados = {}
 
     async with async_playwright() as p:
@@ -99,16 +177,16 @@ async def scrape_supermercado(nombre_super: str, config: dict) -> dict:
         page = await context.new_page()
 
         for producto in PRODUCTOS:
-            print(f"  → {producto['nombre']}...", end=" ", flush=True)
-            query = producto["busqueda"].replace(" ", "+")
+            query = urllib.parse.quote(producto["busqueda"])
             url = config["url_busqueda"].replace("{query}", query)
+            print(f"  → {producto['nombre']}...", end=" ", flush=True)
 
-            prods = await scrape_producto(page, url, config["selectores"])
+            prods = await scrape_producto_playwright(page, url, config["selectores"], producto["id"])
             precio = filtrar_por_unidad(prods, producto["busqueda"])
 
             if precio:
                 resultados[producto["id"]] = precio
-                print(f"${precio:,.0f}")
+                print(f"→ ${precio:,.0f}")
             else:
                 print("sin datos")
 
@@ -119,6 +197,9 @@ async def scrape_supermercado(nombre_super: str, config: dict) -> dict:
     return resultados
 
 
+# ============================================
+# MAIN
+# ============================================
 async def main():
     print("=" * 60)
     print("SCRAPER DE PRECIOS — RADIOGRAFÍA DEL BOLSILLO")
@@ -131,29 +212,44 @@ async def main():
         "productos": {},
     }
 
-    # Inicializar estructura por producto
+    # Estructura por producto
     for p in PRODUCTOS:
         resultado_final["productos"][p["id"]] = {
             "nombre": p["nombre"],
             "unidad": p["unidad"],
-            "precios": {},  # {coto: 21448, carrefour: 22000, jumbo: 21800}
+            "precios": {},
         }
 
-    # Scrapear cada supermercado
-    for key, config in SUPERMERCADOS.items():
-        precios_super = await scrape_supermercado(key, config)
-        for prod_id, precio in precios_super.items():
-            resultado_final["productos"][prod_id]["precios"][key] = precio
+    # Scrapear cada super
+    async with httpx.AsyncClient(
+        headers={"User-Agent": random.choice(USER_AGENTS), "Accept": "application/json"},
+        follow_redirects=True,
+    ) as client:
+        for key, config in SUPERMERCADOS.items():
+            try:
+                if config["tipo"] == "vtex":
+                    precios = await scrape_vtex(client, config)
+                else:
+                    precios = await scrape_coto(config)
 
-    # Calcular promedios
+                for prod_id, precio in precios.items():
+                    resultado_final["productos"][prod_id]["precios"][key] = precio
+            except Exception as e:
+                print(f"\n❌ {config['nombre']} falló completo: {e}")
+
+    # Calcular promedios y metadata
     for prod_id, data in resultado_final["productos"].items():
         valores = list(data["precios"].values())
-        data["promedio"] = round(sum(valores) / len(valores)) if valores else None
-        data["min"] = min(valores) if valores else None
-        data["max"] = max(valores) if valores else None
-        data["super_mas_barato"] = (
-            min(data["precios"], key=data["precios"].get) if valores else None
-        )
+        if valores:
+            data["promedio"] = round(sum(valores) / len(valores))
+            data["min"] = min(valores)
+            data["max"] = max(valores)
+            data["super_mas_barato"] = min(data["precios"], key=data["precios"].get)
+        else:
+            data["promedio"] = None
+            data["min"] = None
+            data["max"] = None
+            data["super_mas_barato"] = None
 
     # Guardar JSON
     OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
@@ -169,6 +265,8 @@ async def main():
     for prod_id, data in resultado_final["productos"].items():
         if data["promedio"]:
             print(f"  {data['nombre']}: ${data['promedio']:,} (promedio)")
+        else:
+            print(f"  {data['nombre']}: sin datos")
 
 
 if __name__ == "__main__":
