@@ -10,7 +10,7 @@ export const CONFIG = {
   // IDs de series (verificar con /search/ si cambian)
   SERIES: {
     IPC: '148.3_INIVELNAL_DICI_M_26',   // IPC Nacional, mensual
-    SMVM: '158.1_SMV_0_0_9',            // Salario Mínimo Vital y Móvil
+    SMVM: '57.1_SMVMM_0_M_34',            // Salario Mínimo Vital y Móvil
   },
 
   // DolarAPI
