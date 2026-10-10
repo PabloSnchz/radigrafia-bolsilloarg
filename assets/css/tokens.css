@@ -1,0 +1,93 @@
+/* ============================================
+   ANDREANI CARTESIAN DESIGN SYSTEM — TOKENS
+   V.1 · Solo variables. Ninguna clase acá.
+   ============================================ */
+:root {
+  /* --- Primitives: Red --- */
+  --c-red-50: #fbe8e9; --c-red-100: #f7d1d2; --c-red-300: #efa3a6; --c-red-500: #df474d;
+  --c-red-600: #d71920; --c-red-700: #b6040b; --c-red-800: #810f13; --c-red-900: #560a0d;
+
+  /* --- Primitives: Orange --- */
+  --c-orange-50: #fdefe9; --c-orange-500: #ed8352; --c-orange-600: #e86427; --c-orange-800: #8b3c17;
+
+  /* --- Primitives: Yellow --- */
+  --c-yellow-50: #fff9ed; --c-yellow-500: #ffcf73; --c-yellow-600: #ffc350; --c-yellow-800: #a97f30;
+
+  /* --- Primitives: Green --- */
+  --c-green-50: #ddf3ea; --c-green-600: #1f7e5a; --c-green-900: #0c3224;
+
+  /* --- Primitives: Blue --- */
+  --c-blue-50: #edeffb; --c-blue-500: #7182df; --c-blue-600: #4e63d7; --c-blue-800: #2f3b81;
+
+  /* --- Primitives: Gray --- */
+  --c-gray-000: #ffffff; --c-gray-50: #fafafa; --c-gray-100: #dfe1e3; --c-gray-200: #c0c3c8;
+  --c-gray-300: #a0a6ac; --c-gray-400: #818891; --c-gray-500: #616a75; --c-gray-600: #4e555e;
+  --c-gray-700: #3a4046; --c-gray-800: #272a2f; --c-gray-900: #1d2023;
+
+  /* --- Semantic: Background & Surface --- */
+  --c-color-bg: #fafafa;
+  --c-color-bg-dark: #1d2023;
+  --c-color-surface: #ffffff;
+  --c-color-surface-neutral-subtle: #fafafa;
+  --c-color-surface-primary-subtle: #fbe8e9;
+  --c-color-surface-error-subtle: #fbe8e9;
+  --c-color-surface-warning-subtle: #fdefe9;
+  --c-color-surface-caution-subtle: #fff9ed;
+  --c-color-surface-info-subtle: #edeffb;
+
+  /* --- Semantic: Fill --- */
+  --c-color-fill-primary: #d71920;
+  --c-color-fill-primary-hover: #b6040b;
+  --c-color-fill-primary-pressed: #810f13;
+  --c-color-fill-error-subtle: #fbe8e9;
+  --c-color-fill-warning-subtle: #fdefe9;
+  --c-color-fill-caution-subtle: #fff9ed;
+  --c-color-fill-success-subtle: #ddf3ea;
+  --c-color-fill-info-subtle: #edeffb;
+
+  /* --- Semantic: Text --- */
+  --c-color-text-strong: #272a2f;
+  --c-color-text: #4e555e;
+  --c-color-text-subtle: #818891;
+  --c-color-text-disabled: #a0a6ac;
+  --c-color-text-inverse: #ffffff;
+  --c-color-text-success: #1f7e5a;
+  --c-color-text-error: #d71920;
+  --c-color-text-error-strong: #810f13;
+  --c-color-text-caution: #e86427;
+  --c-color-text-warning: #ffc350;
+  --c-color-text-info: #4e63d7;
+
+  /* --- Semantic: Borders --- */
+  --c-color-border: #4e555e;
+  --c-color-border-subtle: #c0c3c8;
+  --c-color-border-error: #df474d;
+  --c-color-border-info: #4e63d7;
+
+  /* --- Border Tokens --- */
+  --c-border-radius-xsmall: 4px;
+  --c-border-radius-small: 8px;
+  --c-border-radius-medium: 16px;
+  --c-border-radius-large: 24px;
+  --c-border-radius-xlarge: 99px;
+  --c-border-width-subtle: 1px;
+  --c-border-width-regular: 2px;
+  --c-border-width-strong: 3px;
+
+  /* --- Typography --- */
+  --c-font-family-headline: 'Rubik', sans-serif;
+  --c-font-family-body: 'Roboto', sans-serif;
+
+  /* --- Spacing --- */
+  --c-spacing-1: 4px;  --c-spacing-2: 8px;  --c-spacing-3: 12px; --c-spacing-4: 16px;
+  --c-spacing-5: 24px; --c-spacing-6: 32px; --c-spacing-7: 48px; --c-spacing-8: 64px;
+  --c-spacing-9: 80px;
+
+  /* --- Shadows --- */
+  --shadow-bottom-subtle: 0 1px 2px #4e555e40;
+  --shadow-bottom-regular: 0 2px 2px #4e555e40;
+  --shadow-focus-regular: 0 0 0 3px #4e63d780;
+
+  /* --- Custom --- */
+  --danger-gradient: linear-gradient(135deg, #810f13 0%, #560a0d 100%);
+}

@@ -1,956 +1,216 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Radiografía del Bolsillo Argentino — Termómetro real</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Termómetro real del bolsillo argentino. Precios, servicios y salarios cruzados para ver cuánto perdiste desde 2023.">
+  <title>Radiografía del Bolsillo Argentino — Termómetro real</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;900&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;900&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 
-<style>
-/* ============================================
-   ANDREANI CARTESIAN — TOKENS
-   ============================================ */
-:root {
-  /* Primitives */
-  --c-red-50: #fbe8e9; --c-red-100: #f7d1d2; --c-red-300: #efa3a6; --c-red-500: #df474d;
-  --c-red-600: #d71920; --c-red-700: #b6040b; --c-red-800: #810f13; --c-red-900: #560a0d;
-  --c-orange-50: #fdefe9; --c-orange-500: #ed8352; --c-orange-600: #e86427; --c-orange-800: #8b3c17;
-  --c-yellow-50: #fff9ed; --c-yellow-500: #ffcf73; --c-yellow-600: #ffc350; --c-yellow-800: #a97f30;
-  --c-green-50: #ddf3ea; --c-green-600: #1f7e5a; --c-green-900: #0c3224;
-  --c-blue-50: #edeffb; --c-blue-500: #7182df; --c-blue-600: #4e63d7; --c-blue-800: #2f3b81;
-  --c-gray-000: #ffffff; --c-gray-50: #fafafa; --c-gray-100: #dfe1e3; --c-gray-200: #c0c3c8;
-  --c-gray-300: #a0a6ac; --c-gray-400: #818891; --c-gray-500: #616a75; --c-gray-600: #4e555e;
-  --c-gray-700: #3a4046; --c-gray-800: #272a2f; --c-gray-900: #1d2023;
-
-  /* Semantic — Background & Surface */
-  --c-color-bg: #fafafa;
-  --c-color-bg-dark: #1d2023;
-  --c-color-surface: #ffffff;
-  --c-color-surface-neutral-subtle: #fafafa;
-  --c-color-surface-primary-subtle: #fbe8e9;
-  --c-color-surface-error-subtle: #fbe8e9;
-  --c-color-surface-warning-subtle: #fdefe9;
-  --c-color-surface-caution-subtle: #fff9ed;
-  --c-color-surface-info-subtle: #edeffb;
-
-  /* Semantic — Fill */
-  --c-color-fill-primary: #d71920;
-  --c-color-fill-primary-hover: #b6040b;
-  --c-color-fill-primary-pressed: #810f13;
-  --c-color-fill-error-subtle: #fbe8e9;
-  --c-color-fill-warning-subtle: #fdefe9;
-  --c-color-fill-caution-subtle: #fff9ed;
-  --c-color-fill-success-subtle: #ddf3ea;
-  --c-color-fill-info-subtle: #edeffb;
-
-  /* Semantic — Text */
-  --c-color-text-strong: #272a2f;
-  --c-color-text: #4e555e;
-  --c-color-text-subtle: #818891;
-  --c-color-text-disabled: #a0a6ac;
-  --c-color-text-inverse: #ffffff;
-  --c-color-text-success: #1f7e5a;
-  --c-color-text-error: #d71920;
-  --c-color-text-error-strong: #810f13;
-  --c-color-text-caution: #e86427;
-  --c-color-text-warning: #ffc350;
-  --c-color-text-info: #4e63d7;
-
-  /* Borders */
-  --c-color-border: #4e555e;
-  --c-color-border-subtle: #c0c3c8;
-  --c-color-border-error: #df474d;
-  --c-color-border-info: #4e63d7;
-
-  /* Radii */
-  --c-border-radius-xsmall: 4px;
-  --c-border-radius-small: 8px;
-  --c-border-radius-medium: 16px;
-  --c-border-radius-large: 24px;
-  --c-border-radius-xlarge: 99px;
-
-  /* Widths */
-  --c-border-width-subtle: 1px;
-  --c-border-width-regular: 2px;
-  --c-border-width-strong: 3px;
-
-  /* Fonts */
-  --c-font-family-headline: 'Rubik', sans-serif;
-  --c-font-family-body: 'Roboto', sans-serif;
-
-  /* Spacing */
-  --c-spacing-1: 4px; --c-spacing-2: 8px; --c-spacing-3: 12px; --c-spacing-4: 16px;
-  --c-spacing-5: 24px; --c-spacing-6: 32px; --c-spacing-7: 48px; --c-spacing-8: 64px;
-  --c-spacing-9: 80px;
-
-  /* Shadows */
-  --shadow-bottom-subtle: 0 1px 2px #4e555e40;
-  --shadow-bottom-regular: 0 2px 2px #4e555e40;
-  --shadow-focus-regular: 0 0 0 3px #4e63d780;
-
-  /* Custom — para provocar */
-  --danger-gradient: linear-gradient(135deg, #810f13 0%, #560a0d 100%);
-}
-
-/* ============================================
-   RESET
-   ============================================ */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
-body {
-  font-family: var(--c-font-family-body);
-  font-size: 16px; line-height: 24px;
-  color: var(--c-color-text);
-  background: var(--c-color-bg);
-  padding-bottom: var(--c-spacing-9);
-}
-button { font-family: inherit; }
-
-/* ============================================
-   UTILITIES
-   ============================================ */
-.headline1 { font-family: var(--c-font-family-headline); font-size: 44px; line-height: 48px; font-weight: 900; color: var(--c-color-text-strong); letter-spacing: -0.5px; }
-.headline2 { font-family: var(--c-font-family-headline); font-size: 36px; line-height: 40px; font-weight: 700; color: var(--c-color-text-strong); letter-spacing: -0.3px; }
-.headline3 { font-family: var(--c-font-family-headline); font-size: 28px; line-height: 32px; font-weight: 700; color: var(--c-color-text-strong); }
-.headline4 { font-family: var(--c-font-family-headline); font-size: 22px; line-height: 28px; font-weight: 700; color: var(--c-color-text-strong); }
-.headline5 { font-family: var(--c-font-family-headline); font-size: 18px; line-height: 24px; font-weight: 500; color: var(--c-color-text-strong); }
-.bodylarge { font-size: 18px; line-height: 28px; }
-.bodymedium { font-size: 16px; line-height: 24px; }
-.bodysmall { font-size: 14px; line-height: 20px; }
-.caption { font-size: 12px; line-height: 16px; color: var(--c-color-text-subtle); }
-.overline { font-size: 11px; line-height: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; color: var(--c-color-text-subtle); }
-
-@media (max-width: 1024px) {
-  .headline1 { font-size: 32px; line-height: 36px; }
-  .headline2 { font-size: 26px; line-height: 30px; }
-  .headline3 { font-size: 22px; line-height: 26px; }
-  .headline4 { font-size: 20px; line-height: 26px; }
-}
-
-.container { max-width: 1180px; margin: 0 auto; padding: 0 var(--c-spacing-4); }
-
-/* ============================================
-   HEADER
-   ============================================ */
-.app-header {
-  background: var(--c-gray-900);
-  padding: var(--c-spacing-3) 0;
-  position: sticky; top: 0; z-index: 100;
-  border-bottom: 1px solid #2f3439;
-}
-.header-inner { display: flex; align-items: center; justify-content: space-between; gap: var(--c-spacing-4); }
-.header-brand {
-  font-family: var(--c-font-family-headline);
-  font-size: 18px; font-weight: 700;
-  color: var(--c-color-text-inverse); text-decoration: none;
-}
-.header-brand span { color: var(--c-red-500); }
-.live-badge {
-  display: inline-flex; align-items: center; gap: var(--c-spacing-2);
-  background: rgba(223,71,77,0.15); border: 1px solid rgba(223,71,77,0.3);
-  padding: 4px var(--c-spacing-3); border-radius: var(--c-border-radius-xlarge);
-  font-size: 11px; font-weight: 700; color: #ff9b9e; text-transform: uppercase; letter-spacing: 0.5px;
-}
-.live-dot {
-  width: 7px; height: 7px; background: var(--c-red-500); border-radius: 50%;
-  animation: pulse 1.8s infinite;
-}
-@keyframes pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.5; transform: scale(0.85); }
-}
-
-/* ============================================
-   HERO
-   ============================================ */
-.hero {
-  background: var(--danger-gradient);
-  color: var(--c-color-text-inverse);
-  padding: var(--c-spacing-8) 0 var(--c-spacing-7) 0;
-  position: relative;
-  overflow: hidden;
-}
-.hero::before {
-  content: "";
-  position: absolute; top: -50%; right: -10%; width: 600px; height: 600px;
-  background: radial-gradient(circle, rgba(255,207,115,0.12) 0%, transparent 70%);
-  pointer-events: none;
-}
-.hero .overline { color: var(--c-yellow-500); }
-.hero h1 { color: var(--c-color-text-inverse); max-width: 780px; margin: var(--c-spacing-3) 0 var(--c-spacing-4) 0; }
-.hero h1 em { font-style: normal; color: var(--c-yellow-500); }
-.hero .hero-sub {
-  max-width: 620px; font-size: 18px; line-height: 28px;
-  color: rgba(255,255,255,0.75);
-}
-.hero-cta-row { display: flex; gap: var(--c-spacing-3); margin-top: var(--c-spacing-5); flex-wrap: wrap; }
-
-/* Impact strip */
-.impact-strip {
-  display: grid; grid-template-columns: repeat(3, 1fr);
-  gap: var(--c-spacing-4); margin-top: var(--c-spacing-7);
-  padding-top: var(--c-spacing-6);
-  border-top: 1px solid rgba(255,255,255,0.1);
-}
-.impact-item { text-align: left; }
-.impact-value {
-  font-family: var(--c-font-family-headline);
-  font-size: 40px; line-height: 44px; font-weight: 900;
-  color: var(--c-yellow-500); letter-spacing: -1px;
-}
-.impact-label {
-  font-size: 13px; line-height: 18px; color: rgba(255,255,255,0.6);
-  margin-top: var(--c-spacing-1); max-width: 220px;
-}
-@media (max-width: 768px) {
-  .impact-strip { grid-template-columns: 1fr; gap: var(--c-spacing-5); }
-  .impact-value { font-size: 32px; line-height: 36px; }
-}
-
-/* ============================================
-   SALARY INPUT (sticky)
-   ============================================ */
-.salary-bar {
-  background: var(--c-color-surface);
-  border-bottom: 1px solid var(--c-gray-100);
-  padding: var(--c-spacing-4) 0;
-  position: sticky; top: 57px; z-index: 90;
-  transition: box-shadow 0.2s;
-}
-.salary-bar.elevated { box-shadow: var(--shadow-bottom-regular); }
-.salary-bar-inner {
-  display: flex; align-items: center; gap: var(--c-spacing-4);
-  flex-wrap: wrap;
-}
-.salary-bar-label {
-  font-family: var(--c-font-family-headline);
-  font-size: 14px; font-weight: 700; color: var(--c-color-text-strong);
-  white-space: nowrap;
-}
-.salary-bar-hint { font-size: 12px; color: var(--c-color-text-subtle); }
-.salary-input-wrap {
-  display: flex; align-items: center; gap: var(--c-spacing-2);
-  background: var(--c-gray-50); border: 2px solid var(--c-gray-100);
-  border-radius: var(--c-border-radius-xlarge);
-  padding: var(--c-spacing-1) var(--c-spacing-1) var(--c-spacing-1) var(--c-spacing-4);
-  flex: 1; min-width: 260px; max-width: 420px;
-  transition: border-color 0.15s;
-}
-.salary-input-wrap:focus-within { border-color: var(--c-red-600); box-shadow: var(--shadow-focus-regular); }
-.salary-input-wrap .currency {
-  font-family: var(--c-font-family-headline);
-  font-weight: 700; color: var(--c-color-text-strong);
-  font-size: 16px;
-}
-.salary-input-wrap input {
-  flex: 1; border: none; outline: none; background: transparent;
-  font-family: var(--c-font-family-body);
-  font-size: 16px; font-weight: 500; color: var(--c-color-text-strong);
-  padding: 8px 0; min-width: 0;
-}
-.salary-input-wrap input::placeholder { color: var(--c-color-text-disabled); font-weight: 400; }
-.salary-clear {
-  background: var(--c-color-text-strong); color: var(--c-color-text-inverse);
-  border: none; border-radius: 50%; width: 28px; height: 28px;
-  cursor: pointer; font-size: 14px; font-weight: 700;
-  display: none; align-items: center; justify-content: center;
-}
-.salary-clear.visible { display: flex; }
-
-.salary-summary {
-  display: none; gap: var(--c-spacing-5); align-items: center;
-  flex-wrap: wrap; margin-left: auto;
-}
-.salary-summary.visible { display: flex; }
-.summary-item { text-align: right; }
-.summary-item .summary-label {
-  font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px;
-  color: var(--c-color-text-subtle); font-weight: 700;
-}
-.summary-item .summary-value {
-  font-family: var(--c-font-family-headline);
-  font-size: 18px; font-weight: 700; color: var(--c-color-text-error);
-}
-@media (max-width: 640px) {
-  .salary-bar-inner { flex-direction: column; align-items: stretch; }
-  .salary-input-wrap { max-width: 100%; min-width: 100%; }
-  .salary-summary { justify-content: space-between; margin-left: 0; }
-  .summary-item { text-align: left; }
-}
-
-/* ============================================
-   TERMÓMETRO
-   ============================================ */
-.thermometer {
-  background: var(--c-color-surface);
-  border-radius: var(--c-border-radius-medium);
-  padding: var(--c-spacing-5);
-  border: 1px solid var(--c-gray-100);
-  margin: var(--c-spacing-6) auto var(--c-spacing-7);
-  max-width: 1180px;
-}
-.thermo-header {
-  display: flex; justify-content: space-between; align-items: flex-start;
-  margin-bottom: var(--c-spacing-4); gap: var(--c-spacing-4); flex-wrap: wrap;
-}
-.thermo-title { font-family: var(--c-font-family-headline); font-size: 18px; font-weight: 700; color: var(--c-color-text-strong); }
-.thermo-sub { font-size: 13px; color: var(--c-color-text-subtle); margin-top: 2px; }
-.thermo-reading {
-  font-family: var(--c-font-family-headline);
-  font-size: 32px; font-weight: 900; line-height: 1;
-  color: var(--c-color-text-error);
-  letter-spacing: -1px;
-}
-.thermo-reading .unit { font-size: 16px; font-weight: 700; }
-
-.thermo-track {
-  position: relative;
-  height: 16px; border-radius: var(--c-border-radius-xlarge);
-  background: linear-gradient(90deg, var(--c-green-600) 0%, var(--c-yellow-500) 40%, var(--c-orange-600) 65%, var(--c-red-600) 100%);
-  overflow: hidden;
-}
-.thermo-marker {
-  position: absolute; top: -6px; width: 4px; height: 28px;
-  background: var(--c-color-text-strong);
-  border-radius: 2px;
-  box-shadow: 0 0 0 3px rgba(255,255,255,0.95);
-  transition: left 0.5s cubic-bezier(0.2, 0.9, 0.3, 1.2);
-}
-.thermo-labels {
-  display: flex; justify-content: space-between;
-  margin-top: var(--c-spacing-2);
-  font-size: 11px; color: var(--c-color-text-subtle);
-  font-weight: 500;
-}
-.thermo-legend {
-  display: flex; gap: var(--c-spacing-4); margin-top: var(--c-spacing-4);
-  flex-wrap: wrap; padding-top: var(--c-spacing-4);
-  border-top: 1px solid var(--c-gray-100);
-}
-.legend-item { display: flex; align-items: center; gap: var(--c-spacing-2); font-size: 12px; color: var(--c-color-text); }
-.legend-dot { width: 10px; height: 10px; border-radius: 50%; }
-
-/* ============================================
-   SECTIONS
-   ============================================ */
-.section { padding: var(--c-spacing-8) 0; }
-.section-dark { background: var(--c-color-bg-dark); color: var(--c-color-text-inverse); }
-.section-dark .headline2, .section-dark .headline3, .section-dark .headline4 { color: var(--c-color-text-inverse); }
-.section-header { margin-bottom: var(--c-spacing-6); max-width: 760px; }
-.section-header h2 { margin-bottom: var(--c-spacing-3); }
-.section-header .bajada {
-  font-size: 17px; line-height: 26px;
-  color: var(--c-color-text);
-}
-.section-dark .bajada { color: rgba(255,255,255,0.7); }
-
-/* ============================================
-   PRODUCT CARDS
-   ============================================ */
-.products-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-  gap: var(--c-spacing-4);
-}
-.product-card {
-  background: var(--c-color-surface);
-  border: 1px solid var(--c-gray-100);
-  border-radius: var(--c-border-radius-medium);
-  padding: var(--c-spacing-5);
-  display: flex; flex-direction: column;
-  position: relative;
-  transition: border-color 0.2s, transform 0.2s;
-}
-.product-card:hover { border-color: var(--c-red-300); }
-.product-card .severity-tag {
-  position: absolute; top: var(--c-spacing-4); right: var(--c-spacing-4);
-  font-size: 10px; font-weight: 700; text-transform: uppercase;
-  letter-spacing: 0.5px;
-  padding: 3px 8px; border-radius: var(--c-border-radius-xsmall);
-}
-.severity-critical { background: var(--c-color-fill-error-subtle); color: var(--c-color-text-error-strong); }
-.severity-warning { background: var(--c-color-fill-warning-subtle); color: var(--c-color-text-caution); }
-.severity-moderate { background: var(--c-color-fill-caution-subtle); color: var(--c-yellow-800); }
-.severity-ok { background: var(--c-color-fill-success-subtle); color: var(--c-color-text-success); }
-
-.product-header {
-  display: flex; align-items: center; gap: var(--c-spacing-2);
-  margin-bottom: var(--c-spacing-4);
-}
-.product-emoji { font-size: 24px; }
-.product-name {
-  font-family: var(--c-font-family-headline);
-  font-size: 17px; font-weight: 700; color: var(--c-color-text-strong);
-}
-.product-unit { font-size: 12px; color: var(--c-color-text-subtle); }
-
-/* Price comparison rows */
-.price-history {
-  display: flex; align-items: center; gap: var(--c-spacing-3);
-  margin-bottom: var(--c-spacing-4);
-  padding: var(--c-spacing-3);
-  background: var(--c-gray-50);
-  border-radius: var(--c-border-radius-small);
-}
-.price-past {
-  font-size: 13px; color: var(--c-color-text-subtle);
-  text-decoration: line-through;
-  text-decoration-color: var(--c-red-500);
-  text-decoration-thickness: 1.5px;
-  font-weight: 500;
-}
-.price-past-label { font-size: 10px; color: var(--c-color-text-subtle); text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 2px; }
-.price-dic { font-size: 13px; color: var(--c-color-text); font-weight: 500; }
-.price-arrow { color: var(--c-color-text-disabled); font-size: 14px; }
-.price-today {
-  margin-left: auto;
-  font-family: var(--c-font-family-headline);
-  font-size: 22px; font-weight: 900; color: var(--c-color-text-error-strong);
-  letter-spacing: -0.5px;
-}
-
-/* Variation bar */
-.variation-section { margin-bottom: var(--c-spacing-4); }
-.variation-row {
-  display: flex; justify-content: space-between; align-items: baseline;
-  font-size: 12px; margin-bottom: 4px;
-}
-.variation-label { color: var(--c-color-text-subtle); font-weight: 500; }
-.variation-value { font-weight: 700; color: var(--c-color-text-strong); font-family: var(--c-font-family-headline); }
-.variation-bar {
-  height: 8px; background: var(--c-gray-100); border-radius: 4px;
-  position: relative; overflow: hidden; margin-bottom: var(--c-spacing-3);
-}
-.variation-bar-fill {
-  position: absolute; left: 0; top: 0; height: 100%;
-  border-radius: 4px;
-  transition: width 0.8s cubic-bezier(0.2, 0.9, 0.3, 1);
-}
-.fill-danger { background: linear-gradient(90deg, var(--c-red-500), var(--c-red-700)); }
-.fill-warning { background: linear-gradient(90deg, var(--c-orange-500), var(--c-orange-600)); }
-.fill-caution { background: linear-gradient(90deg, var(--c-yellow-500), var(--c-yellow-600)); }
-.fill-ok { background: linear-gradient(90deg, var(--c-green-600), var(--c-green-600)); }
-
-/* Work hours — the emotional hook */
-.work-hours {
-  background: var(--c-color-surface-error-subtle);
-  border-left: var(--c-border-width-strong) solid var(--c-red-600);
-  padding: var(--c-spacing-3) var(--c-spacing-4);
-  border-radius: 0 var(--c-border-radius-small) var(--c-border-radius-small) 0;
-  margin-top: auto;
-}
-.work-hours-label {
-  font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px;
-  color: var(--c-color-text-error-strong); font-weight: 700;
-  margin-bottom: 4px;
-}
-.work-hours-value {
-  font-family: var(--c-font-family-headline);
-  font-size: 15px; font-weight: 700; color: var(--c-color-text-strong);
-  line-height: 20px;
-}
-.work-hours-value strong { color: var(--c-color-text-error-strong); }
-.work-hours-delta {
-  font-size: 12px; color: var(--c-color-text-error);
-  margin-top: 2px; font-weight: 500;
-}
-
-/* ============================================
-   RANKING "Los que más te roban"
-   ============================================ */
-.ranking-list {
-  background: var(--c-color-surface);
-  border-radius: var(--c-border-radius-medium);
-  overflow: hidden;
-  border: 1px solid var(--c-gray-100);
-}
-.ranking-row {
-  display: grid;
-  grid-template-columns: 48px 1fr auto;
-  gap: var(--c-spacing-4);
-  align-items: center;
-  padding: var(--c-spacing-4) var(--c-spacing-5);
-  border-bottom: 1px solid var(--c-gray-100);
-  transition: background 0.15s;
-}
-.ranking-row:hover { background: var(--c-gray-50); }
-.ranking-row:last-child { border-bottom: none; }
-.ranking-pos {
-  font-family: var(--c-font-family-headline);
-  font-size: 28px; font-weight: 900; color: var(--c-color-text-disabled);
-  text-align: center; line-height: 1;
-}
-.ranking-row:nth-child(1) .ranking-pos { color: var(--c-red-600); }
-.ranking-row:nth-child(2) .ranking-pos { color: var(--c-orange-600); }
-.ranking-row:nth-child(3) .ranking-pos { color: var(--c-yellow-600); }
-.ranking-info .ranking-name {
-  font-family: var(--c-font-family-headline);
-  font-size: 16px; font-weight: 700; color: var(--c-color-text-strong);
-}
-.ranking-info .ranking-meta {
-  font-size: 12px; color: var(--c-color-text-subtle);
-  margin-top: 2px;
-}
-.ranking-badge {
-  font-family: var(--c-font-family-headline);
-  font-size: 18px; font-weight: 900; color: var(--c-color-text-error-strong);
-  text-align: right; white-space: nowrap;
-}
-.ranking-badge .ranking-badge-label {
-  display: block;
-  font-size: 10px; font-weight: 700;
-  color: var(--c-color-text-subtle); text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-@media (max-width: 640px) {
-  .ranking-row { grid-template-columns: 36px 1fr auto; padding: var(--c-spacing-3); gap: var(--c-spacing-3); }
-  .ranking-pos { font-size: 22px; }
-  .ranking-badge { font-size: 15px; }
-}
-
-/* ============================================
-   SERVICIOS
-   ============================================ */
-.services-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: var(--c-spacing-4);
-}
-.service-card {
-  background: var(--c-color-surface);
-  border: 1px solid var(--c-gray-100);
-  border-radius: var(--c-border-radius-medium);
-  padding: var(--c-spacing-5);
-  position: relative;
-}
-.service-icon { font-size: 24px; margin-bottom: var(--c-spacing-2); display: block; }
-.service-name {
-  font-family: var(--c-font-family-headline);
-  font-size: 15px; font-weight: 700; color: var(--c-color-text-strong);
-  margin-bottom: var(--c-spacing-3);
-}
-.service-price {
-  font-family: var(--c-font-family-headline);
-  font-size: 24px; font-weight: 900; color: var(--c-color-text-error-strong);
-  line-height: 1; letter-spacing: -0.5px;
-}
-.service-price-past {
-  font-size: 12px; color: var(--c-color-text-subtle);
-  text-decoration: line-through; margin-top: 4px;
-}
-.service-impact {
-  margin-top: var(--c-spacing-4);
-  padding-top: var(--c-spacing-4);
-  border-top: 1px solid var(--c-gray-100);
-}
-.service-impact-row {
-  display: flex; justify-content: space-between;
-  font-size: 12px; margin-bottom: 4px;
-}
-.service-impact-row .label { color: var(--c-color-text-subtle); }
-.service-impact-row .value { font-weight: 700; color: var(--c-color-text-error); font-family: var(--c-font-family-headline); }
-
-/* ============================================
-   COSTO DE VIVIR
-   ============================================ */
-.living-cost {
-  background: var(--danger-gradient);
-  border-radius: var(--c-border-radius-medium);
-  padding: var(--c-spacing-7) var(--c-spacing-6);
-  color: var(--c-color-text-inverse);
-  text-align: center;
-  margin-top: var(--c-spacing-6);
-}
-.living-cost .overline { color: var(--c-yellow-500); }
-.living-cost-value {
-  font-family: var(--c-font-family-headline);
-  font-size: 64px; font-weight: 900; line-height: 1;
-  color: var(--c-color-text-inverse);
-  letter-spacing: -2px;
-  margin: var(--c-spacing-3) 0;
-}
-.living-cost-value .unit { font-size: 28px; font-weight: 700; }
-.living-cost-sub {
-  font-size: 15px; color: rgba(255,255,255,0.75);
-  max-width: 500px; margin: 0 auto;
-}
-.living-cost-sub strong { color: var(--c-yellow-500); }
-@media (max-width: 640px) {
-  .living-cost-value { font-size: 44px; letter-spacing: -1px; }
-  .living-cost-value .unit { font-size: 20px; }
-}
-
-/* ============================================
-   SHARE
-   ============================================ */
-.share-wrap { max-width: 520px; margin: 0 auto; }
-.share-card {
-  background: var(--c-gray-900);
-  border-radius: var(--c-border-radius-medium);
-  padding: var(--c-spacing-6);
-  color: var(--c-color-text-inverse);
-  text-align: left;
-  position: relative;
-  overflow: hidden;
-}
-.share-card::before {
-  content: ""; position: absolute;
-  top: -60px; right: -60px; width: 200px; height: 200px;
-  background: radial-gradient(circle, rgba(223,71,77,0.25) 0%, transparent 70%);
-}
-.share-card .share-brand {
-  font-family: var(--c-font-family-headline);
-  font-size: 13px; font-weight: 700;
-  color: var(--c-red-500); letter-spacing: 0.5px;
-  text-transform: uppercase;
-  margin-bottom: var(--c-spacing-4);
-}
-.share-card .share-hook {
-  font-size: 13px; color: rgba(255,255,255,0.5);
-  margin-bottom: var(--c-spacing-2);
-}
-.share-card .share-headline {
-  font-family: var(--c-font-family-headline);
-  font-size: 30px; line-height: 34px; font-weight: 900;
-  letter-spacing: -0.5px;
-  margin-bottom: var(--c-spacing-4);
-}
-.share-card .share-headline em { font-style: normal; color: var(--c-yellow-500); }
-.share-card .share-footer {
-  font-size: 12px; color: rgba(255,255,255,0.5);
-  padding-top: var(--c-spacing-4);
-  border-top: 1px solid rgba(255,255,255,0.1);
-}
-.share-card .share-footer strong { color: var(--c-color-text-inverse); }
-@media (max-width: 640px) {
-  .share-card .share-headline { font-size: 22px; line-height: 26px; }
-}
-
-/* ============================================
-   BUTTONS
-   ============================================ */
-.btn {
-  display: inline-flex; align-items: center; justify-content: center;
-  gap: var(--c-spacing-2);
-  height: 40px; padding: 0 var(--c-spacing-5);
-  border-radius: var(--c-border-radius-xlarge);
-  font-family: var(--c-font-family-body);
-  font-size: 15px; font-weight: 700;
-  cursor: pointer; border: none;
-  text-decoration: none; outline: none;
-  transition: all 0.15s;
-  white-space: nowrap;
-}
-.btn:focus-visible { box-shadow: var(--shadow-focus-regular); }
-.btn-primary { background: var(--c-color-fill-primary); color: var(--c-color-text-inverse); }
-.btn-primary:hover { background: var(--c-color-fill-primary-hover); }
-.btn-primary:active { background: var(--c-color-fill-primary-pressed); }
-.btn-light { background: var(--c-color-text-inverse); color: var(--c-color-text-strong); }
-.btn-light:hover { background: var(--c-gray-100); }
-.btn-outline-light { background: transparent; color: var(--c-color-text-inverse); border: 2px solid rgba(255,255,255,0.3); }
-.btn-outline-light:hover { border-color: var(--c-color-text-inverse); }
-.btn-outline-dark { background: transparent; color: var(--c-color-text-strong); border: 2px solid var(--c-gray-200); }
-.btn-outline-dark:hover { border-color: var(--c-color-text-strong); }
-@media (max-width: 768px) {
-  .btn { height: 48px; padding: 0 var(--c-spacing-5); }
-}
-
-/* ============================================
-   ALERTS
-   ============================================ */
-.alert {
-  display: flex; gap: var(--c-spacing-3);
-  padding: var(--c-spacing-4) var(--c-spacing-5);
-  border-radius: var(--c-border-radius-small);
-  border-left: var(--c-border-width-strong) solid;
-  font-size: 14px; line-height: 22px;
-}
-.alert-icon { flex-shrink: 0; font-size: 20px; line-height: 1; }
-.alert-info { background: var(--c-color-surface-info-subtle); border-color: var(--c-color-border-info); color: var(--c-blue-800); }
-.alert-warning { background: var(--c-color-surface-warning-subtle); border-color: var(--c-orange-600); color: var(--c-orange-800); }
-.alert-error { background: var(--c-color-surface-error-subtle); border-color: var(--c-red-600); color: var(--c-color-text-error-strong); }
-.alert strong { font-weight: 700; }
-
-/* ============================================
-   FOOTER
-   ============================================ */
-.app-footer {
-  background: var(--c-gray-900); color: var(--c-gray-400);
-  padding: var(--c-spacing-6) 0;
-  margin-top: var(--c-spacing-8);
-}
-.footer-inner {
-  display: flex; justify-content: space-between; align-items: flex-start;
-  gap: var(--c-spacing-5); flex-wrap: wrap;
-}
-.footer-brand {
-  font-family: var(--c-font-family-headline);
-  font-size: 16px; font-weight: 700; color: var(--c-color-text-inverse);
-  margin-bottom: var(--c-spacing-2);
-}
-.footer-brand span { color: var(--c-red-500); }
-.footer-links { display: flex; gap: var(--c-spacing-5); flex-wrap: wrap; }
-.footer-links a { color: var(--c-gray-400); text-decoration: none; font-size: 14px; }
-.footer-links a:hover { color: var(--c-color-text-inverse); }
-.footer-copy {
-  margin-top: var(--c-spacing-4); font-size: 12px;
-  color: var(--c-gray-500); width: 100%;
-  padding-top: var(--c-spacing-4);
-  border-top: 1px solid #2f3439;
-}
-
-/* Skip link */
-.skip-link {
-  position: absolute; top: -100px; left: var(--c-spacing-4);
-  background: var(--c-color-fill-primary); color: var(--c-color-text-inverse);
-  padding: var(--c-spacing-2) var(--c-spacing-4);
-  border-radius: var(--c-border-radius-small);
-  z-index: 200; font-size: 14px; text-decoration: none;
-}
-.skip-link:focus { top: var(--c-spacing-4); }
-
-/* Reduced motion */
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    transition-duration: 0.01ms !important;
-  }
-}
-</style>
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
 
 <a href="#contenido" class="skip-link">Saltar al contenido</a>
 
-<!-- ==========================================
-     HEADER
-     ========================================== -->
+<!-- HEADER -->
 <header class="app-header">
   <div class="container header-inner">
     <a href="#" class="header-brand">Radiografía<span>.</span></a>
     <span class="live-badge">
-      <span class="live-dot"></span>
-      <span id="live-status">Datos en vivo</span>
+      <span class="live-dot" id="live-dot"></span>
+      <span id="live-status">Conectando…</span>
     </span>
   </div>
 </header>
 
 <main id="contenido">
 
-<!-- ==========================================
-     1. HERO
-     ========================================== -->
-<section class="hero">
-  <div class="container">
-    <p class="overline">Análisis sin anestesia · 2023 → hoy</p>
-    <h1 class="headline1">La inflación oficial dice <em id="hero-ipc">+X%</em>. Tu góndola dice otra cosa.</h1>
-    <p class="hero-sub">No te mostramos porcentajes. Te mostramos cuántos kilos de carne, litros de leche y horas de tu vida te cuesta llenar el changuito hoy.</p>
+  <!-- 1. HERO -->
+  <section class="hero">
+    <div class="container">
+      <p class="overline">Análisis sin anestesia · 2023 → hoy</p>
+      <h1 class="headline1">
+        La inflación oficial dice <em id="hero-ipc">+—%</em>.
+        Tu góndola dice otra cosa.
+      </h1>
+      <p class="hero-sub">
+        No te mostramos porcentajes. Te mostramos cuántos kilos de carne,
+        litros de leche y horas de tu vida te cuesta llenar el changuito hoy.
+      </p>
 
-    <div class="hero-cta-row">
-      <a href="#calculadora" class="btn btn-light">Calcular mi caso →</a>
-      <a href="#ranking" class="btn btn-outline-light">Ver los peores</a>
-    </div>
+      <div class="hero-cta-row">
+        <a href="#calculadora" class="btn btn-light">Calcular mi caso →</a>
+        <a href="#ranking" class="btn btn-outline-light">Ver los peores</a>
+      </div>
 
-    <div class="impact-strip">
-      <div class="impact-item">
-        <div class="impact-value" id="impact-carne">+411%</div>
-        <div class="impact-label">Subió la nalga desde Dic 2023</div>
-      </div>
-      <div class="impact-item">
-        <div class="impact-value" id="impact-horas">+4.7hs</div>
-        <div class="impact-label">De trabajo extra para comprar 1kg</div>
-      </div>
-      <div class="impact-item">
-        <div class="impact-value" id="impact-servicios">+526%</div>
-        <div class="impact-label">Canasta de servicios básicos (IIEP)</div>
+      <div class="impact-strip">
+        <div class="impact-item">
+          <div class="impact-value" id="impact-carne">+—%</div>
+          <div class="impact-label">Subió la nalga desde Dic 2023</div>
+        </div>
+        <div class="impact-item">
+          <div class="impact-value" id="impact-horas">+—hs</div>
+          <div class="impact-label">De trabajo extra para comprar 1kg</div>
+        </div>
+        <div class="impact-item">
+          <div class="impact-value" id="impact-dolar">$—</div>
+          <div class="impact-label">Dólar blue hoy (referencia)</div>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- ==========================================
-     2. SALARY INPUT — afecta todo
-     ========================================== -->
-<div class="salary-bar" id="salary-bar">
-  <div class="container salary-bar-inner">
-    <div>
-      <div class="salary-bar-label">¿Cuánto ganás en mano?</div>
-      <div class="salary-bar-hint">Ingresalo y todos los números se adaptan a tu realidad</div>
-    </div>
-    <div class="salary-input-wrap">
-      <span class="currency">$</span>
-      <input type="number" id="salary-input" placeholder="850.000" inputmode="numeric" aria-label="Tu sueldo neto mensual">
-      <button class="salary-clear" id="salary-clear" aria-label="Limpiar sueldo">×</button>
-    </div>
-    <div class="salary-summary" id="salary-summary">
-      <div class="summary-item">
-        <div class="summary-label">Tu sueldo hoy</div>
-        <div class="summary-value" id="summary-salary">—</div>
-      </div>
-      <div class="summary-item">
-        <div class="summary-label">Equivale a</div>
-        <div class="summary-value" id="summary-2023" style="color:var(--c-color-text-strong);">—</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ==========================================
-     3. TERMÓMETRO
-     ========================================== -->
-<div class="container">
-  <div class="thermometer" role="region" aria-label="Termómetro del bolsillo">
-    <div class="thermo-header">
+  <!-- 2. INPUT DE SUELDO (sticky) -->
+  <div class="salary-bar" id="salary-bar">
+    <div class="container salary-bar-inner">
       <div>
-        <div class="thermo-title">Termómetro del bolsillo</div>
-        <div class="thermo-sub" id="thermo-sub">Cargá tu sueldo para ver tu nivel de alerta</div>
+        <div class="salary-bar-label">¿Cuánto ganás en mano?</div>
+        <div class="salary-bar-hint">Ingresalo y todos los números se adaptan a tu realidad</div>
       </div>
-      <div class="thermo-reading" id="thermo-reading">— <span class="unit">/100</span></div>
-    </div>
-    <div class="thermo-track">
-      <div class="thermo-marker" id="thermo-marker" style="left: 0%;"></div>
-    </div>
-    <div class="thermo-labels">
-      <span>Tranquilo</span>
-      <span>Ajustado</span>
-      <span>Crítico</span>
-      <span>Emergencia</span>
-    </div>
-    <div class="thermo-legend">
-      <div class="legend-item"><span class="legend-dot" style="background:var(--c-green-600);"></span> Podés ahorrar</div>
-      <div class="legend-item"><span class="legend-dot" style="background:var(--c-yellow-500);"></span> Llegás justo</div>
-      <div class="legend-item"><span class="legend-dot" style="background:var(--c-orange-600);"></span> Te endeudás</div>
-      <div class="legend-item"><span class="legend-dot" style="background:var(--c-red-600);"></span> No llegás</div>
-    </div>
-  </div>
-</div>
-
-<!-- ==========================================
-     4. ALIMENTOS
-     ========================================== -->
-<section class="section" id="alimentos">
-  <div class="container">
-    <div class="section-header">
-      <p class="overline">Bloque 1 · Alimentos</p>
-      <h2 class="headline2">Lo que ponés en la mesa, un producto por vez</h2>
-      <p class="bajada">Cada tarjeta muestra cuánto costaba, cuánto cuesta hoy y cuántas horas de trabajo necesitás para comprarlo. El orden no es casual: los que más te pegan van primero.</p>
-    </div>
-
-    <div class="products-grid" id="products-grid">
-      <!-- Se inyecta por JS -->
-    </div>
-
-    <div class="alert alert-warning" style="margin-top:var(--c-spacing-6);">
-      <span class="alert-icon">⚠</span>
-      <div><strong>La carne vacuna es el rubro que más castigó tu bolsillo.</strong> La nalga subió más del doble que el IPC oficial desde diciembre 2023. En 2023 trabajabas 5 horas para comprar 1kg. Hoy necesitás casi 10.</div>
-    </div>
-  </div>
-</section>
-
-<!-- ==========================================
-     5. RANKING
-     ========================================== -->
-<section class="section section-dark" id="ranking">
-  <div class="container">
-    <div class="section-header">
-      <p class="overline" style="color:var(--c-yellow-500);">Ranking</p>
-      <h2 class="headline2">Los que más te roban</h2>
-      <p class="bajada">Ordenados por desvío contra el IPC oficial. Los primeros de la lista son los que más se aprovecharon de la inflación.</p>
-    </div>
-    <div class="ranking-list" id="ranking-list" style="background:rgba(255,255,255,0.04); border-color:rgba(255,255,255,0.08);">
-      <!-- Se inyecta por JS -->
-    </div>
-    <p class="caption" style="margin-top:var(--c-spacing-4); color:rgba(255,255,255,0.5);">
-      Desvío = diferencia entre la variación del producto (Dic 2023 → hoy) y el IPC acumulado oficial en el mismo período.
-    </p>
-  </div>
-</section>
-
-<!-- ==========================================
-     6. SERVICIOS
-     ========================================== -->
-<section class="section" id="servicios" style="background:var(--c-gray-50);">
-  <div class="container">
-    <div class="section-header">
-      <p class="overline">Bloque 2 · Servicios</p>
-      <h2 class="headline2">El costo fijo que se come tu sueldo antes de la góndola</h2>
-      <p class="bajada">Luz, gas, agua, transporte e internet. Todo lo que tenés que pagar sí o sí, antes de decidir qué comer.</p>
-    </div>
-
-    <div class="services-grid" id="services-grid">
-      <!-- Se inyecta por JS -->
-    </div>
-
-    <div class="alert alert-error" style="margin-top:var(--c-spacing-6);">
-      <span class="alert-icon">🔴</span>
-      <div><strong>En AMBA, la canasta de servicios públicos aumentó 526% entre dic/2023 y sept/2025</strong> (IIEP-UBA). El transporte público pasó de representar el 5% del salario mínimo a más del 11%.</div>
-    </div>
-  </div>
-</section>
-
-<!-- ==========================================
-     7. COSTO DE VIVIR
-     ========================================== -->
-<section class="section" id="costo-vivir">
-  <div class="container">
-    <div class="section-header" style="text-align:center; margin-left:auto; margin-right:auto;">
-      <p class="overline">El número final</p>
-      <h2 class="headline2" style="max-width:700px; margin-left:auto; margin-right:auto;">¿Cuánto necesitás para vivir?</h2>
-      <p class="bajada" style="margin-left:auto; margin-right:auto;">Sumamos una canasta básica + los servicios esenciales. Este es el piso para no quedar afuera.</p>
-    </div>
-
-    <div class="living-cost">
-      <p class="overline">Costo mensual estimado</p>
-      <div class="living-cost-value">
-        <span class="unit">$</span><span id="living-cost-value">—</span>
+      <div class="salary-input-wrap">
+        <span class="currency">$</span>
+        <input type="number" id="salary-input" placeholder="850000" inputmode="numeric" aria-label="Tu sueldo neto mensual">
+        <button class="salary-clear" id="salary-clear" aria-label="Limpiar sueldo">×</button>
       </div>
-      <p class="living-cost-sub" id="living-cost-sub">Cargá tu sueldo arriba para ver qué porcentaje se te va en sobrevivir.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ==========================================
-     8. SHARE
-     ========================================== -->
-<section class="section">
-  <div class="container">
-    <div class="section-header" style="text-align:center; margin-left:auto; margin-right:auto;">
-      <p class="overline">Compartilo</p>
-      <h2 class="headline2">Tu realidad, en un cuadro</h2>
-    </div>
-
-    <div class="share-wrap">
-      <div class="share-card" id="share-card">
-        <p class="share-brand">Radiografía del Bolsillo</p>
-        <p class="share-hook">Con mi sueldo hoy:</p>
-        <p class="share-headline" id="share-headline">Cargá tu sueldo para ver tu resultado</p>
-        <p class="share-footer">
-          Calculalo vos → <strong>radiografia.ar</strong>
-        </p>
-      </div>
-      <div style="display:flex; gap:var(--c-spacing-3); margin-top:var(--c-spacing-5); justify-content:center; flex-wrap:wrap;">
-        <button class="btn btn-primary" id="btn-share" type="button">
-          Compartir resultado
-        </button>
+      <div class="salary-summary" id="salary-summary">
+        <div class="summary-item">
+          <div class="summary-label">Tu sueldo hoy</div>
+          <div class="summary-value" id="summary-salary">—</div>
+        </div>
+        <div class="summary-item">
+          <div class="summary-label">Equivale a</div>
+          <div class="summary-value" id="summary-2023" style="color:var(--c-color-text-strong);">—</div>
+        </div>
       </div>
     </div>
   </div>
-</section>
+
+  <!-- 3. TERMÓMETRO -->
+  <div class="container">
+    <div class="thermometer" role="region" aria-label="Termómetro del bolsillo">
+      <div class="thermo-header">
+        <div>
+          <div class="thermo-title">Termómetro del bolsillo</div>
+          <div class="thermo-sub" id="thermo-sub">Cargá tu sueldo para ver tu nivel de alerta</div>
+        </div>
+        <div class="thermo-reading" id="thermo-reading">— <span class="unit">/100</span></div>
+      </div>
+      <div class="thermo-track">
+        <div class="thermo-marker" id="thermo-marker" style="left: 0%;"></div>
+      </div>
+      <div class="thermo-labels">
+        <span>Tranquilo</span><span>Ajustado</span><span>Crítico</span><span>Emergencia</span>
+      </div>
+      <div class="thermo-legend">
+        <div class="legend-item"><span class="legend-dot" style="background:var(--c-green-600);"></span> Podés ahorrar</div>
+        <div class="legend-item"><span class="legend-dot" style="background:var(--c-yellow-500);"></span> Llegás justo</div>
+        <div class="legend-item"><span class="legend-dot" style="background:var(--c-orange-600);"></span> Te endeudás</div>
+        <div class="legend-item"><span class="legend-dot" style="background:var(--c-red-600);"></span> No llegás</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. ALIMENTOS -->
+  <section class="section" id="alimentos">
+    <div class="container">
+      <div class="section-header">
+        <p class="overline">Bloque 1 · Alimentos</p>
+        <h2 class="headline2">Lo que ponés en la mesa, un producto por vez</h2>
+        <p class="bajada">Cada tarjeta muestra cuánto costaba, cuánto cuesta hoy y cuántas horas de trabajo necesitás para comprarlo. Los que más te pegan van primero.</p>
+      </div>
+      <div class="products-grid" id="products-grid"></div>
+      <div class="alert alert-warning" style="margin-top:var(--c-spacing-6);">
+        <span class="alert-icon">⚠</span>
+        <div id="alert-alimentos"><strong>La carne vacuna es el rubro que más castigó tu bolsillo.</strong> La nalga subió más del doble que el IPC oficial desde diciembre 2023.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. RANKING -->
+  <section class="section section-dark" id="ranking">
+    <div class="container">
+      <div class="section-header">
+        <p class="overline" style="color:var(--c-yellow-500);">Ranking</p>
+        <h2 class="headline2">Los que más te roban</h2>
+        <p class="bajada">Ordenados por desvío contra el IPC oficial. Los primeros de la lista son los que más se aprovecharon.</p>
+      </div>
+      <div class="ranking-list" id="ranking-list"></div>
+      <p class="caption" style="margin-top:var(--c-spacing-4); color:rgba(255,255,255,0.5);">
+        Desvío = diferencia entre la variación del producto (Dic 2023 → hoy) y el IPC acumulado oficial en el mismo período.
+      </p>
+    </div>
+  </section>
+
+  <!-- 6. SERVICIOS -->
+  <section class="section" id="servicios" style="background:var(--c-gray-50);">
+    <div class="container">
+      <div class="section-header">
+        <p class="overline">Bloque 2 · Servicios</p>
+        <h2 class="headline2">El costo fijo que se come tu sueldo antes de la góndola</h2>
+        <p class="bajada">Luz, gas, agua, transporte e internet. Todo lo que pagás sí o sí, antes de decidir qué comer.</p>
+      </div>
+      <div class="services-grid" id="services-grid"></div>
+      <div class="alert alert-error" style="margin-top:var(--c-spacing-6);">
+        <span class="alert-icon">🔴</span>
+        <div><strong>En AMBA, la canasta de servicios públicos aumentó 526% entre dic/2023 y sept/2025</strong> (IIEP-UBA). El transporte público pasó de representar el 5% del salario mínimo a más del 11%.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. COSTO DE VIVIR -->
+  <section class="section" id="costo-vivir">
+    <div class="container">
+      <div class="section-header" style="text-align:center; margin-left:auto; margin-right:auto;">
+        <p class="overline">El número final</p>
+        <h2 class="headline2" style="max-width:700px; margin-left:auto; margin-right:auto;">¿Cuánto necesitás para vivir?</h2>
+        <p class="bajada" style="margin-left:auto; margin-right:auto;">Sumamos una canasta básica + los servicios esenciales. Este es el piso para no quedar afuera.</p>
+      </div>
+      <div class="living-cost">
+        <p class="overline">Costo mensual estimado</p>
+        <div class="living-cost-value">
+          <span class="unit">$</span><span id="living-cost-value">—</span>
+        </div>
+        <p class="living-cost-sub" id="living-cost-sub">Cargá tu sueldo arriba para ver qué porcentaje se te va en sobrevivir.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. SHARE -->
+  <section class="section" id="calculadora">
+    <div class="container">
+      <div class="section-header" style="text-align:center; margin-left:auto; margin-right:auto;">
+        <p class="overline">Compartilo</p>
+        <h2 class="headline2">Tu realidad, en un cuadro</h2>
+      </div>
+      <div class="share-wrap">
+        <div class="share-card" id="share-card">
+          <p class="share-brand">Radiografía del Bolsillo</p>
+          <p class="share-hook">Con mi sueldo hoy:</p>
+          <p class="share-headline" id="share-headline">Cargá tu sueldo para ver tu resultado</p>
+          <p class="share-footer">Calculalo vos → <strong>radiografia.ar</strong></p>
+        </div>
+        <div style="display:flex; gap:var(--c-spacing-3); margin-top:var(--c-spacing-5); justify-content:center; flex-wrap:wrap;">
+          <button class="btn btn-primary" id="btn-share" type="button">Compartir resultado</button>
+        </div>
+      </div>
+    </div>
+  </section>
 
 </main>
 
-<!-- ==========================================
-     FOOTER
-     ========================================== -->
 <footer class="app-footer">
   <div class="container">
     <div class="footer-inner">
       <div>
         <div class="footer-brand">Radiografía<span>.</span></div>
-        <p class="caption" style="color:var(--c-gray-500); max-width: 320px;">Datos que no te cuentan. Análisis ciudadano e independiente.</p>
+        <p class="caption" style="color:var(--c-gray-500); max-width:320px;">
+          Datos que no te cuentan. Análisis ciudadano e independiente.
+        </p>
       </div>
       <nav class="footer-links" aria-label="Enlaces">
         <a href="#">Metodología</a>
@@ -958,397 +218,12 @@ button { font-family: inherit; }
         <a href="https://github.com/PabloSnchz/radigrafia-bolsilloorq">GitHub</a>
       </nav>
     </div>
-    <p class="footer-copy">
-      Fuentes: INDEC, datos.gob.ar, IIEP (UBA-CONICET), OCLA, Precios Claros. Los valores son promedios y pueden variar según región y momento del mes. Este proyecto es una herramienta de análisis, no un índice oficial.
+    <p class="footer-copy" id="footer-sources">
+      Fuentes: INDEC, datos.gob.ar, IIEP (UBA-CONICET), OCLA, Precios Claros.
     </p>
   </div>
 </footer>
 
-<script>
-/* ============================================
-   CAPA DE DATOS
-   En Fase B: reemplazar `fetch` mock por llamadas reales
-   a datos.gob.ar, DolarAPI, Precios Claros, etc.
-   ============================================ */
-const INFLACION_IPC = {
-  // Acumulado Dic 2023 → hoy (%)
-  acumuladaPostDeval: 330,
-  // Acumulado Principios 2023 → hoy (%)
-  acumuladaTotal: 1150
-};
-
-const SMVM = {
-  actual: 391200,
-  dic2023: 156000,
-  princ2023: 65427,
-  horasMes: 176 // 22 días × 8 hs
-};
-
-// Precios de alimentos
-// precioHoy: en Fase B se obtiene vía API
-const ALIMENTOS = [
-  { id:'nalga',   nombre:'Nalga',         emoji:'🥩', unidad:'kg',      categoria:'carne-vacuna', precio2023:1850, precioDic2023:4200,  precioHoy:21448 },
-  { id:'picada',  nombre:'Carne picada',  emoji:'🥩', unidad:'kg',      categoria:'carne-vacuna', precio2023:950,  precioDic2023:2500,  precioHoy:10613 },
-  { id:'asado',   nombre:'Asado',         emoji:'🥩', unidad:'kg',      categoria:'carne-vacuna', precio2023:1400, precioDic2023:4750,  precioHoy:16736 },
-  { id:'cerdo',   nombre:'Carne de cerdo',emoji:'🐖', unidad:'kg',      categoria:'carne-cerdo',  precio2023:1600, precioDic2023:3900,  precioHoy:15900 },
-  { id:'pollo',   nombre:'Pollo entero',  emoji:'🐔', unidad:'kg',      categoria:'carne-pollo',  precio2023:950,  precioDic2023:2400,  precioHoy:8200 },
-  { id:'pan',     nombre:'Pan francés',   emoji:'🥖', unidad:'kg',      categoria:'panificados',  precio2023:460,  precioDic2023:1200,  precioHoy:4910 },
-  { id:'leche',   nombre:'Leche entera',  emoji:'🥛', unidad:'litro',   categoria:'lacteos',      precio2023:216,  precioDic2023:457,   precioHoy:2000 }
-];
-
-// Servicios (valores promedio AMBA, N2)
-const SERVICIOS = [
-  { id:'luz',        nombre:'Electricidad', emoji:'💡', precio2023:2100, precioDic2023:8500,  precioHoy:23463 },
-  { id:'gas',        nombre:'Gas natural',  emoji:'🔥', precio2023:1800, precioDic2023:7200,  precioHoy:18500 },
-  { id:'agua',       nombre:'Agua (AySA)', emoji:'💧', precio2023:900,  precioDic2023:3500,  precioHoy:9800  },
-  { id:'transporte', nombre:'Transporte (60 viajes)', emoji:'🚌', precio2023:3600, precioDic2023:7500, precioHoy:45600 },
-  { id:'internet',   nombre:'Internet + Cable', emoji:'📡', precio2023:4500, precioDic2023:12000, precioHoy:38000 }
-];
-
-/* ============================================
-   CÁLCULOS
-   ============================================ */
-const calc = {
-  // Variación porcentual
-  variacion: (from, to) => ((to - from) / from) * 100,
-  // Horas de trabajo (al SMVM del momento)
-  horas: (precio, smvm) => precio / (smvm / SMVM.horasMes),
-  // Desvío vs IPC
-  desvio: (variacion, ipc) => variacion - ipc
-};
-
-// Enriquecer cada alimento con métricas
-function enrichItems() {
-  ALIMENTOS.forEach(a => {
-    a.variacionTotal = calc.variacion(a.precio2023, a.precioHoy);
-    a.variacionPostDeval = calc.variacion(a.precioDic2023, a.precioHoy);
-    a.desvioIPC = calc.desvio(a.variacionPostDeval, INFLACION_IPC.acumuladaPostDeval);
-    a.horas2023 = calc.horas(a.precioDic2023, SMVM.dic2023);
-    a.horasHoy = calc.horas(a.precioHoy, SMVM.actual);
-    a.deltaHoras = a.horasHoy - a.horas2023;
-    // Severidad
-    if (a.desvioIPC >= 60) a.severidad = 'critical';
-    else if (a.desvioIPC >= 20) a.severidad = 'warning';
-    else if (a.desvioIPC >= -10) a.severidad = 'moderate';
-    else a.severidad = 'ok';
-  });
-  SERVICIOS.forEach(s => {
-    s.variacionTotal = calc.variacion(s.precio2023, s.precioHoy);
-    s.variacionPostDeval = calc.variacion(s.precioDic2023, s.precioHoy);
-    s.desvioIPC = calc.desvio(s.variacionPostDeval, INFLACION_IPC.acumuladaPostDeval);
-  });
-}
-enrichItems();
-
-/* ============================================
-   HELPERS
-   ============================================ */
-const fmt = {
-  pesos: (n) => '$' + Math.round(n).toLocaleString('es-AR'),
-  pesosCompact: (n) => {
-    if (n >= 1_000_000) return '$' + (n/1_000_000).toFixed(1).replace('.',',') + 'M';
-    if (n >= 1_000) return '$' + Math.round(n/1000) + 'k';
-    return '$' + Math.round(n);
-  },
-  pct: (n) => (n >= 0 ? '+' : '') + Math.round(n) + '%',
-  pctDec: (n) => (n >= 0 ? '+' : '') + n.toFixed(1).replace('.', ',') + '%',
-  horas: (n) => n.toFixed(1).replace('.', ',') + ' hs'
-};
-
-/* ============================================
-   RENDER — HERO
-   ============================================ */
-document.getElementById('hero-ipc').textContent = '+' + INFLACION_IPC.acumuladaPostDeval + '%';
-
-/* ============================================
-   RENDER — PRODUCTOS
-   ============================================ */
-function severityLabel(s) {
-  return { critical: 'Te destruye', warning: 'Te pega fuerte', moderate: 'En línea', ok: 'Zafás' }[s];
-}
-function fillClass(s) {
-  return { critical: 'fill-danger', warning: 'fill-warning', moderate: 'fill-caution', ok: 'fill-ok' }[s];
-}
-function severityTagClass(s) {
-  return 'severity-' + s;
-}
-
-function renderProducts() {
-  const grid = document.getElementById('products-grid');
-  // Ordenar por desvío descendente — los peores primero
-  const sorted = [...ALIMENTOS].sort((a,b) => b.desvioIPC - a.desvioIPC);
-
-  grid.innerHTML = sorted.map(p => `
-    <article class="product-card">
-      <span class="severity-tag ${severityTagClass(p.severidad)}">${severityLabel(p.severidad)}</span>
-      <header class="product-header">
-        <span class="product-emoji" aria-hidden="true">${p.emoji}</span>
-        <div>
-          <div class="product-name">${p.nombre}</div>
-          <div class="product-unit">por ${p.unidad}</div>
-        </div>
-      </header>
-
-      <div class="price-history">
-        <div>
-          <span class="price-past-label">2023</span>
-          <span class="price-past">${fmt.pesos(p.precio2023)}</span>
-        </div>
-        <span class="price-arrow" aria-hidden="true">→</span>
-        <div>
-          <span class="price-past-label">Dic 23</span>
-          <span class="price-dic">${fmt.pesos(p.precioDic2023)}</span>
-        </div>
-        <div class="price-today">${fmt.pesos(p.precioHoy)}</div>
-      </div>
-
-      <div class="variation-section">
-        <div class="variation-row">
-          <span class="variation-label">Variación Dic 2023 → hoy</span>
-          <span class="variation-value">${fmt.pct(p.variacionPostDeval)}</span>
-        </div>
-        <div class="variation-bar">
-          <div class="variation-bar-fill ${fillClass(p.severidad)}" style="width:${Math.min(100, (p.variacionPostDeval / 500) * 100)}%"></div>
-        </div>
-        <div class="variation-row">
-          <span class="variation-label">IPC oficial del período</span>
-          <span class="variation-value" style="color:var(--c-color-text-subtle);">+${INFLACION_IPC.acumuladaPostDeval}%</span>
-        </div>
-        <div class="variation-row" style="margin-top:6px;">
-          <span class="variation-label" style="color:var(--c-color-text-error); font-weight:700;">Desvío vs IPC</span>
-          <span class="variation-value" style="color:var(--c-color-text-error);">${fmt.pctDec(p.desvioIPC)}</span>
-        </div>
-      </div>
-
-      <div class="work-hours">
-        <div class="work-hours-label">Horas de trabajo para comprarlo</div>
-        <div class="work-hours-value">
-          En 2023: <strong>${fmt.horas(p.horas2023)}</strong> · Hoy: <strong>${fmt.horas(p.horasHoy)}</strong>
-        </div>
-        ${p.deltaHoras > 0.5 ? `<div class="work-hours-delta">+ ${fmt.horas(p.deltaHoras)} de tu vida por lo mismo</div>` : ''}
-      </div>
-    </article>
-  `).join('');
-}
-renderProducts();
-
-/* ============================================
-   RENDER — RANKING
-   ============================================ */
-function renderRanking() {
-  const list = document.getElementById('ranking-list');
-  const sorted = [...ALIMENTOS].sort((a,b) => b.desvioIPC - a.desvioIPC);
-
-  list.innerHTML = sorted.map((p, i) => `
-    <div class="ranking-row">
-      <div class="ranking-pos">${(i+1).toString().padStart(2,'0')}</div>
-      <div class="ranking-info">
-        <div class="ranking-name">${p.emoji} ${p.nombre}</div>
-        <div class="ranking-meta">${fmt.pesos(p.precioDic2023)} → ${fmt.pesos(p.precioHoy)} · ${fmt.pct(p.variacionPostDeval)}</div>
-      </div>
-      <div class="ranking-badge">
-        ${fmt.pctDec(p.desvioIPC)}
-        <span class="ranking-badge-label">vs IPC</span>
-      </div>
-    </div>
-  `).join('');
-}
-renderRanking();
-
-/* ============================================
-   RENDER — SERVICIOS
-   ============================================ */
-function renderServices() {
-  const grid = document.getElementById('services-grid');
-  const sorted = [...SERVICIOS].sort((a,b) => b.variacionPostDeval - a.variacionPostDeval);
-
-  grid.innerHTML = sorted.map(s => `
-    <article class="service-card">
-      <span class="service-icon" aria-hidden="true">${s.emoji}</span>
-      <div class="service-name">${s.nombre}</div>
-      <div class="service-price">${fmt.pesos(s.precioHoy)}</div>
-      <div class="service-price-past">Dic 2023: ${fmt.pesos(s.precioDic2023)}</div>
-      <div class="service-impact">
-        <div class="service-impact-row">
-          <span class="label">Variación</span>
-          <span class="value">${fmt.pct(s.variacionPostDeval)}</span>
-        </div>
-        <div class="service-impact-row">
-          <span class="label">Desvío vs IPC</span>
-          <span class="value">${fmt.pctDec(s.desvioIPC)}</span>
-        </div>
-      </div>
-    </article>
-  `).join('');
-}
-renderServices();
-
-/* ============================================
-   SALARY INPUT — lógica central
-   ============================================ */
-const salaryInput = document.getElementById('salary-input');
-const salaryClear = document.getElementById('salary-clear');
-const salarySummary = document.getElementById('salary-summary');
-const salaryBar = document.getElementById('salary-bar');
-
-let userSalary = 0;
-
-function handleSalaryChange() {
-  const raw = salaryInput.value.replace(/\./g, '').replace(/,/g, '');
-  const val = parseFloat(raw);
-  if (!val || val <= 0) {
-    userSalary = 0;
-    salaryClear.classList.remove('visible');
-    salarySummary.classList.remove('visible');
-    updateAll();
-    return;
-  }
-  userSalary = val;
-  salaryClear.classList.add('visible');
-  salarySummary.classList.add('visible');
-  updateAll();
-}
-
-salaryInput.addEventListener('input', handleSalaryChange);
-salaryClear.addEventListener('click', () => {
-  salaryInput.value = '';
-  handleSalaryChange();
-  salaryInput.focus();
-});
-
-// Detectar scroll para elevar la salary-bar
-window.addEventListener('scroll', () => {
-  if (window.scrollY > 200) salaryBar.classList.add('elevated');
-  else salaryBar.classList.remove('elevated');
-});
-
-/* ============================================
-   UPDATE ALL — recalcula toda la página
-   ============================================ */
-const COSTO_VIVIR = {
-  // Canasta básica mínima + servicios
-  // Aproximación: 1kg pan + 2L leche + 1kg pollo + 1kg picada + verdura + servicios
-  canastaBase: 45 * 1000, // placeholder, se ajusta abajo
-};
-
-function calcularCostoVivir() {
-  // Canasta de referencia mensual para una persona
-  const pan = ALIMENTOS.find(a => a.id === 'pan').precioHoy * 5;      // 5kg
-  const leche = ALIMENTOS.find(a => a.id === 'leche').precioHoy * 10; // 10L
-  const pollo = ALIMENTOS.find(a => a.id === 'pollo').precioHoy * 2;  // 2kg
-  const picada = ALIMENTOS.find(a => a.id === 'picada').precioHoy * 2;// 2kg
-  const verdura = 15000; // estimado
-  const servicios = SERVICIOS.reduce((sum, s) => sum + s.precioHoy, 0);
-  return pan + leche + pollo + picada + verdura + servicios;
-}
-
-function updateAll() {
-  // Hero: impacto de carne (dinámico por variación)
-  const nalga = ALIMENTOS.find(a => a.id === 'nalga');
-  document.getElementById('impact-carne').textContent = fmt.pct(nalga.variacionPostDeval);
-  document.getElementById('impact-horas').textContent = '+' + fmt.horas(nalga.deltaHoras);
-
-  // Salary summary
-  if (userSalary > 0) {
-    document.getElementById('summary-salary').textContent = fmt.pesosCompact(userSalary);
-    // Equivalente en pesos de Dic 2023 (ajustado por IPC)
-    const equivalente = userSalary / (1 + INFLACION_IPC.acumuladaPostDeval / 100);
-    document.getElementById('summary-2023').textContent = fmt.pesosCompact(equivalente) + ' (2023)';
-  }
-
-  // Termómetro
-  updateThermometer();
-
-  // Costo de vivir
-  const costoVivir = calcularCostoVivir();
-  document.getElementById('living-cost-value').textContent = Math.round(costoVivir).toLocaleString('es-AR');
-  if (userSalary > 0) {
-    const pct = Math.round((costoVivir / userSalary) * 100);
-    document.getElementById('living-cost-sub').innerHTML =
-      `Ese número equivale al <strong>${pct}% de tu sueldo</strong>. ` +
-      (pct >= 100 ? 'No te alcanza ni para lo básico.' :
-       pct >= 80 ? 'Te queda muy poco para lo demás.' :
-       pct >= 60 ? 'Vivís al límite.' :
-       'Podés respirar, pero ajustado.');
-  } else {
-    document.getElementById('living-cost-sub').innerHTML = 'Cargá tu sueldo arriba para ver qué porcentaje se te va en sobrevivir.';
-  }
-
-  // Share card
-  updateShareCard();
-}
-
-function updateThermometer() {
-  const costoVivir = calcularCostoVivir();
-  const marker = document.getElementById('thermo-marker');
-  const reading = document.getElementById('thermo-reading');
-  const sub = document.getElementById('thermo-sub');
-
-  if (userSalary <= 0) {
-    marker.style.left = '0%';
-    reading.textContent = '— /100';
-    sub.textContent = 'Cargá tu sueldo para ver tu nivel de alerta';
-    return;
-  }
-
-  // Score 0-100: 0 = tranquilo, 100 = emergencia
-  // Si gastás <= 30% en lo básico → 0
-  // Si gastás >= 100% → 100
-  const pct = (costoVivir / userSalary) * 100;
-  let score = Math.max(0, Math.min(100, ((pct - 30) / 70) * 100));
-  score = Math.round(score);
-
-  marker.style.left = score + '%';
-
-  let label = '';
-  if (score < 25) label = 'Tranquilo';
-  else if (score < 50) label = 'Ajustado';
-  else if (score < 75) label = 'Crítico';
-  else label = 'Emergencia';
-
-  reading.innerHTML = `${score} <span class="unit">/100 · ${label}</span>`;
-  sub.textContent = `Estás gastando el ${Math.round(pct)}% de tu sueldo solo en sobrevivir`;
-}
-
-function updateShareCard() {
-  const headline = document.getElementById('share-headline');
-  if (userSalary <= 0) {
-    headline.textContent = 'Cargá tu sueldo para ver tu resultado';
-    return;
-  }
-  const nalga = ALIMENTOS.find(a => a.id === 'nalga');
-  const kg = (userSalary / nalga.precioHoy).toFixed(1);
-  const kg2023 = (userSalary / nalga.precioDic2023).toFixed(1);
-  const perdida = Math.round(((kg2023 - kg) / kg2023) * 100);
-
-  headline.innerHTML = `Compro <em>${kg}kg</em> de nalga.<br>En Dic 2023 compraba <em>${kg2023}kg</em>.`;
-}
-
-/* ============================================
-   SHARE
-   ============================================ */
-document.getElementById('btn-share').addEventListener('click', () => {
-  const texto = userSalary > 0
-    ? `Con mi sueldo hoy compro ${document.getElementById('share-headline').textContent.replace(/<[^>]*>/g,'').trim()}. Calculá el tuyo:`
-    : 'Mirá cuánto perdió tu sueldo desde 2023. Calculalo acá:';
-  const url = window.location.href;
-
-  if (navigator.share) {
-    navigator.share({ title: 'Radiografía del Bolsillo Argentino', text: texto, url }).catch(()=>{});
-  } else {
-    navigator.clipboard.writeText(`${texto} ${url}`).then(() => {
-      const btn = document.getElementById('btn-share');
-      const orig = btn.textContent;
-      btn.textContent = '✓ Copiado';
-      setTimeout(() => { btn.textContent = orig; }, 2000);
-    });
-  }
-});
-
-/* ============================================
-   INIT
-   ============================================ */
-updateAll();
-</script>
+<script type="module" src="assets/js/app.js"></script>
 </body>
 </html>
