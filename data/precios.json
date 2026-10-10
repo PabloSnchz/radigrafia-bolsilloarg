@@ -1,0 +1,73 @@
+{
+  "actualizado": "2026-10-10T16:50:36.030509+00:00",
+  "fuentes": [
+    "Coto",
+    "Carrefour",
+    "Jumbo"
+  ],
+  "productos": {
+    "nalga": {
+      "nombre": "Nalga",
+      "unidad": "kg",
+      "precios": {},
+      "promedio": null,
+      "min": null,
+      "max": null,
+      "super_mas_barato": null
+    },
+    "picada": {
+      "nombre": "Carne picada",
+      "unidad": "kg",
+      "precios": {},
+      "promedio": null,
+      "min": null,
+      "max": null,
+      "super_mas_barato": null
+    },
+    "asado": {
+      "nombre": "Asado",
+      "unidad": "kg",
+      "precios": {},
+      "promedio": null,
+      "min": null,
+      "max": null,
+      "super_mas_barato": null
+    },
+    "cerdo": {
+      "nombre": "Carne de cerdo",
+      "unidad": "kg",
+      "precios": {},
+      "promedio": null,
+      "min": null,
+      "max": null,
+      "super_mas_barato": null
+    },
+    "pollo": {
+      "nombre": "Pollo entero",
+      "unidad": "kg",
+      "precios": {},
+      "promedio": null,
+      "min": null,
+      "max": null,
+      "super_mas_barato": null
+    },
+    "pan": {
+      "nombre": "Pan francés",
+      "unidad": "kg",
+      "precios": {},
+      "promedio": null,
+      "min": null,
+      "max": null,
+      "super_mas_barato": null
+    },
+    "leche": {
+      "nombre": "Leche entera",
+      "unidad": "litro",
+      "precios": {},
+      "promedio": null,
+      "min": null,
+      "max": null,
+      "super_mas_barato": null
+    }
+  }
+}
