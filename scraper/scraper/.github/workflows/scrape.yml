@@ -1,0 +1,42 @@
+name: Actualizar precios de supermercados
+
+on:
+  # Ejecutar todos los lunes a las 6 AM UTC (3 AM Argentina)
+  schedule:
+    - cron: '0 6 * * 1'
+  # Permitir ejecución manual desde la pestaña Actions
+  workflow_dispatch:
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write  # necesario para commitear el JSON
+
+    steps:
+      - name: Checkout del repositorio
+        uses: actions/checkout@v4
+
+      - name: Instalar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Instalar dependencias
+        working-directory: scraper
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+          playwright install chromium --with-deps
+
+      - name: Ejecutar scraper
+        working-directory: scraper
+        run: python scrape.py
+
+      - name: Commit y push del JSON actualizado
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/precios.json
+          git diff --cached --quiet || git commit -m "chore(data): actualiza precios de supermercados $(date +'%Y-%m-%d')"
+          git push

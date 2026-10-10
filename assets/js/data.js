@@ -6,19 +6,9 @@
 import { CONFIG } from './config.js';
 
 /* ============================================
-   DATOS ESTÁTICOS (fallback / precios góndola)
-   En Fase B esto se reemplaza por scraper de Precios Claros.
+   SERVICIOS — datos estáticos
+   Pendiente Fase B: parseo de informes IIEP (UBA-CONICET)
    ============================================ */
-const ALIMENTOS_FALLBACK = [
-  { id:'nalga',   nombre:'Nalga',          emoji:'🥩', unidad:'kg',    precio2023:1850, precioDic2023:4200,  precioHoy:21448 },
-  { id:'picada',  nombre:'Carne picada',   emoji:'🥩', unidad:'kg',    precio2023:950,  precioDic2023:2500,  precioHoy:10613 },
-  { id:'asado',   nombre:'Asado',          emoji:'🥩', unidad:'kg',    precio2023:1400, precioDic2023:4750,  precioHoy:16736 },
-  { id:'cerdo',   nombre:'Carne de cerdo', emoji:'🐖', unidad:'kg',    precio2023:1600, precioDic2023:3900,  precioHoy:15900 },
-  { id:'pollo',   nombre:'Pollo entero',   emoji:'🐔', unidad:'kg',    precio2023:950,  precioDic2023:2400,  precioHoy:8200  },
-  { id:'pan',     nombre:'Pan francés',    emoji:'🥖', unidad:'kg',    precio2023:460,  precioDic2023:1200,  precioHoy:4910  },
-  { id:'leche',   nombre:'Leche entera',   emoji:'🥛', unidad:'litro', precio2023:216,  precioDic2023:457,   precioHoy:2000  },
-];
-
 const SERVICIOS_FALLBACK = [
   { id:'luz',        nombre:'Electricidad',           emoji:'💡', precio2023:2100, precioDic2023:8500,  precioHoy:23463 },
   { id:'gas',        nombre:'Gas natural',            emoji:'🔥', precio2023:1800, precioDic2023:7200,  precioHoy:18500 },
@@ -26,6 +16,32 @@ const SERVICIOS_FALLBACK = [
   { id:'transporte', nombre:'Transporte (60 viajes)', emoji:'🚌', precio2023:3600, precioDic2023:7500,  precioHoy:45600 },
   { id:'internet',   nombre:'Internet + Cable',       emoji:'📡', precio2023:4500, precioDic2023:12000, precioHoy:38000 },
 ];
+
+/* ============================================
+   ALIMENTOS — valores históricos fijos
+   Los precios de 2023 y Dic 2023 son históricos y no cambian.
+   El precioHoy se obtiene del scraper (data/precios.json).
+   ============================================ */
+const PRECIOS_BASE = [
+  { id:'nalga',   nombre:'Nalga',          emoji:'🥩', unidad:'kg',    precio2023:1850, precioDic2023:4200  },
+  { id:'picada',  nombre:'Carne picada',   emoji:'🥩', unidad:'kg',    precio2023:950,  precioDic2023:2500  },
+  { id:'asado',   nombre:'Asado',          emoji:'🥩', unidad:'kg',    precio2023:1400, precioDic2023:4750  },
+  { id:'cerdo',   nombre:'Carne de cerdo', emoji:'🐖', unidad:'kg',    precio2023:1600, precioDic2023:3900  },
+  { id:'pollo',   nombre:'Pollo entero',   emoji:'🐔', unidad:'kg',    precio2023:950,  precioDic2023:2400  },
+  { id:'pan',     nombre:'Pan francés',    emoji:'🥖', unidad:'kg',    precio2023:460,  precioDic2023:1200  },
+  { id:'leche',   nombre:'Leche entera',   emoji:'🥛', unidad:'litro', precio2023:216,  precioDic2023:457   },
+];
+
+// Fallback de precioHoy si el scraper todavía no corrió o falló
+const PRECIOS_HOY_FALLBACK = {
+  nalga:  21448,
+  picada: 10613,
+  asado:  16736,
+  cerdo:  15900,
+  pollo:  8200,
+  pan:    4910,
+  leche:  2000,
+};
 
 /* ============================================
    HELPERS
@@ -43,7 +59,7 @@ async function fetchWithTimeout(url, timeout = CONFIG.FETCH_TIMEOUT) {
 }
 
 /* ============================================
-   FETCHERS
+   FETCHERS — DATOS MACRO
    ============================================ */
 
 /**
@@ -121,21 +137,83 @@ export async function fetchDolarBlue() {
   }
 }
 
-/**
- * Trae todos los datos en paralelo.
- */
+/* ============================================
+   FETCHER — PRECIOS DE SUPERMERCADOS
+   Lee data/precios.json generado por el scraper semanal (GitHub Actions).
+   ============================================ */
+export async function fetchPreciosSupermercados() {
+  try {
+    // Cache-busting con timestamp para no leer una versión vieja
+    const res = await fetch(`data/precios.json?v=${Date.now()}`);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const json = await res.json();
+
+    // Mezclar precios scrapeados con los valores base históricos
+    const alimentos = PRECIOS_BASE.map(item => {
+      const scrapeado = json.productos?.[item.id] ?? {};
+      const precioHoy = scrapeado.promedio ?? PRECIOS_HOY_FALLBACK[item.id] ?? item.precioDic2023;
+
+      return {
+        ...item,
+        precioHoy,
+        preciosPorSuper: scrapeado.precios ?? {},
+        superMasBarato: scrapeado.super_mas_barato ?? null,
+        superMasCaro: scrapeado.precios
+          ? Object.keys(scrapeado.precios).reduce((a, b) =>
+              scrapeado.precios[a] > scrapeado.precios[b] ? a : b
+            )
+          : null,
+      };
+    });
+
+    return {
+      alimentos,
+      fuentes: json.fuentes ?? ['Coto', 'Carrefour', 'Jumbo'],
+      actualizado: json.actualizado ?? null,
+      origen: 'scraper',
+    };
+  } catch (err) {
+    console.warn('[data] Fallback precios estáticos:', err.message);
+
+    // Fallback completo: usar los precios hardcodeados originales
+    const alimentos = PRECIOS_BASE.map(item => ({
+      ...item,
+      precioHoy: PRECIOS_HOY_FALLBACK[item.id] ?? item.precioDic2023,
+      preciosPorSuper: {},
+      superMasBarato: null,
+      superMasCaro: null,
+    }));
+
+    return {
+      alimentos,
+      fuentes: ['fallback'],
+      actualizado: null,
+      origen: 'fallback',
+    };
+  }
+}
+
+/* ============================================
+   FETCHER — TODO EN PARALELO
+   ============================================ */
 export async function fetchAllData() {
-  const [inflacion, smvm, dolarBlue] = await Promise.all([
+  const [inflacion, smvm, dolarBlue, precios] = await Promise.all([
     fetchInflacion(),
     fetchSMVM(),
     fetchDolarBlue(),
+    fetchPreciosSupermercados(),
   ]);
 
   return {
     inflacion,
     smvm,
     dolarBlue,
-    alimentos: [...ALIMENTOS_FALLBACK],
+    alimentos: precios.alimentos,
     servicios: [...SERVICIOS_FALLBACK],
+    meta: {
+      fuentesPrecios: precios.fuentes,
+      actualizadoPrecios: precios.actualizado,
+      origenPrecios: precios.origen,
+    },
   };
 }
