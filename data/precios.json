@@ -1,9 +1,9 @@
 {
-  "actualizado": "2026-10-10T16:50:36.030509+00:00",
+  "actualizado": "2026-10-12T14:23:55.041434+00:00",
   "fuentes": [
-    "Coto",
     "Carrefour",
-    "Jumbo"
+    "Jumbo",
+    "Coto"
   ],
   "productos": {
     "nalga": {
@@ -45,11 +45,14 @@
     "pollo": {
       "nombre": "Pollo entero",
       "unidad": "kg",
-      "precios": {},
-      "promedio": null,
-      "min": null,
-      "max": null,
-      "super_mas_barato": null
+      "precios": {
+        "carrefour": 3979.0,
+        "jumbo": 4999.0
+      },
+      "promedio": 4489,
+      "min": 3979.0,
+      "max": 4999.0,
+      "super_mas_barato": "carrefour"
     },
     "pan": {
       "nombre": "Pan francés",
