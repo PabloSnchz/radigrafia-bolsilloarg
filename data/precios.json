@@ -1,5 +1,5 @@
 {
-  "actualizado": "2026-11-09T15:08:40.297670+00:00",
+  "actualizado": "2026-11-16T14:45:52.398350+00:00",
   "fuentes": [
     "Carrefour",
     "Jumbo",
@@ -46,11 +46,11 @@
       "nombre": "Pollo entero",
       "unidad": "kg",
       "precios": {
-        "carrefour": 3979.0,
+        "carrefour": 2990.0,
         "jumbo": 4999.0
       },
-      "promedio": 4489,
-      "min": 3979.0,
+      "promedio": 3994,
+      "min": 2990.0,
       "max": 4999.0,
       "super_mas_barato": "carrefour"
     },
